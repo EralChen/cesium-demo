@@ -1,4 +1,6 @@
 import RestFetch from './RestFetch'
+import { ElMessage, ElLoadingService } from 'element-plus'
+import type { LoadingOptions } from 'element-plus'
 import type { RequestOptions } from './RestFetch'
 
 const restFetch = new RestFetch({
@@ -14,7 +16,7 @@ const restFetch = new RestFetch({
 })
 interface InitOptions{
   msg?: boolean;
-  loading?: boolean;
+  loading?: boolean | LoadingOptions;
 }
 interface BaseResponse<T = unknown> {
   code: number;
@@ -23,30 +25,35 @@ interface BaseResponse<T = unknown> {
   data: T;
 }
 
-
 async function request<T extends BaseResponse> (options: RequestOptions, init?: InitOptions):Promise<T> {
   const loading = !!init?.loading
-  // [TODO] 需要一个loading控制器
+  let loadingService:ReturnType<typeof ElLoadingService>|null = null
   if (loading) {
-    // [TODO] 开启loading
+    loadingService = ElLoadingService(
+      typeof init.loading === 'boolean' ?  {} : init.loading, 
+    )
   }
   const res = await restFetch.request<T>(options)
   if (!(res.code === 200 || res.status === 10001)) {
-    // [TODO] 显示请求失败 的消息
+    console.warn(res)
+    ElMessage({
+      type: 'error',
+      message: res.msg,
+    })
   }
-
   // token异常
   if (res.status === 10405 || res.status === 10406 || res.status === 10407 || res.status === 10408) {
     // [TODO] 重新去获取token
   }
-
   if (res.status === 10001 || res.code === 200) { // 请求成功
     if (init?.msg) { 
-      // [TODO] 显示请求成功 的消息
+      ElMessage({
+        type: 'success',
+        message: res.msg,
+      })
     }
   }
-
-  // [TODO] 关闭loading
+  loadingService?.close()
   return res
 }
 
