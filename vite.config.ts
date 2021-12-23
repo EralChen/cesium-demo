@@ -5,6 +5,7 @@ import viteSvgIcons from 'vite-plugin-svg-icons'
 import windowEnv from './build/plugins/window-env'
 import { getEnv } from './utils/env'
 import path from 'path'
+import { viteExternalsPlugin } from 'vite-plugin-externals' 
 import { srcRoot, workRoot } from './config/path'
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => {
@@ -29,6 +30,9 @@ export default defineConfig(({ mode }) => {
       vue(),
       vueJSX(),
       windowEnv(),
+      viteExternalsPlugin({
+        cesium: 'Cesium',
+      }),
       viteSvgIcons({
         // Specify the icon folder to be cached
         iconDirs: [path.resolve(srcRoot,'./icons/svg')],

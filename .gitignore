@@ -4,5 +4,7 @@ dist
 dist-ssr
 *.local
 
+public/Cesium
+
 package-lock.json
 pnpm-lock.yaml
