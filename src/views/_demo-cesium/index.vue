@@ -16,8 +16,11 @@ export default defineComponent({
 })
 </script>
 <template>
+  <!-- 初始化cesium Viewer -->
   <VumViewer>
+    <!-- 替换天地图作为底图 -->
     <VumSkyBasemap></VumSkyBasemap>
+    <!-- 添加 Cesium3dTileset -->
     <VumCesium3dTileset :default-options="{
       url: 'http://112.16.181.129:180/web/tileset/wlsq/djsq/tileset.json'
     }"
