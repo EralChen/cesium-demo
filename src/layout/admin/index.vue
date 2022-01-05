@@ -11,6 +11,12 @@ export default defineComponent({
 })
 </script>
 <template>
-  <SideBar></SideBar>
-  <router-view></router-view>
+  <div class="admin-layout-x" sk-flex="row">
+    <div class="admin-layout-side-bar-x">
+      <SideBar></SideBar>
+    </div>
+    <main>
+      <router-view></router-view>
+    </main>
+  </div>
 </template>
