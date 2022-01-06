@@ -1,15 +1,27 @@
 <script lang="ts">
-import { defineComponent, onMounted } from 'vue'
-import {getOrgTree} from '@/api/demo'
+import { setRootStyle } from '@/utils/root'
+import { defineComponent, ref } from 'vue'
 export default defineComponent({
   setup () {
-    onMounted(() => {
-      getOrgTree()
-    })
-    return {}
+    const color = ref('')
+    const changeColor = (color: string) => {
+      setRootStyle({
+        '--c-primary': color,
+      })
+    }
+    return {
+      color,
+      changeColor,
+    }
   },
 })
 </script>
 <template>
-  <div>el</div>
+  <el-color-picker v-model="color" show-alpha  @change="changeColor" />
+  <p class="test">home</p>
 </template>
+<style>
+.test{
+  color: var(--c-primary);
+}
+</style>
