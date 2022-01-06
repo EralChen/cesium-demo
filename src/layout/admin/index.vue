@@ -20,3 +20,12 @@ export default defineComponent({
     </main>
   </div>
 </template>
+<style>
+.admin-layout-x{
+  height: 100%;
+}
+.admin-layout-side-bar-x{
+  width: 300px;
+  height: 100%;
+}
+</style>
