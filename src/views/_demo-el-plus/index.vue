@@ -1,6 +1,7 @@
 <script lang="ts">
 import { setRootStyle } from '@/utils/root'
 import { defineComponent, ref } from 'vue'
+import { getOrgTree } from '@/api/demo'
 export default defineComponent({
   setup () {
     const color = ref('')
@@ -9,6 +10,9 @@ export default defineComponent({
         '--c-primary': color,
       })
     }
+    getOrgTree().then(res => {
+      console.log(res)
+    })
     return {
       color,
       changeColor,

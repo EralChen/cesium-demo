@@ -1,6 +1,6 @@
 
 import request from '@/api/_request/base'
-import type { BaseResponse } from '@/api/_request/base'
+import type { BaseResponse } from 'vunk/element-plus'
 
 export type OrgTreeNode = {
   name: string
