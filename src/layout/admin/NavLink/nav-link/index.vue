@@ -1,5 +1,6 @@
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, PropType } from 'vue'
+import { RouteRecordRaw } from 'vue-router'
 import CollapseX from '../collapse-x/index.vue'
 export default defineComponent({
   name: 'AdminLayoutNavLink',
@@ -7,6 +8,14 @@ export default defineComponent({
     CollapseX,
   },
   props: {
+    event: {
+      type: String as PropType<keyof DocumentEventMap | ''>,
+      default: 'click',
+    },
+    parent: {
+      type: Object as PropType<RouteRecordRaw>,
+      default: () => ({}),
+    },
     to: {
       type: String,
       required: true,
@@ -23,7 +32,7 @@ export default defineComponent({
       <CollapseX>
         <template #header>
           <a
-            @click="navigate"
+            @[event]="navigate"
             class="admin-layout-nav-link"
             :class="{
               'is-active': isActive,
@@ -34,7 +43,7 @@ export default defineComponent({
           </a>
         </template>
         <template #body>
-          <slot></slot>
+          <slot :parent="parent"></slot>
         </template>
       </CollapseX>
     </template>

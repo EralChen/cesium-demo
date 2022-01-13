@@ -9,7 +9,7 @@ export default [
     },
     children: [
       { 
-        path: '', 
+        path: 'a', 
         meta: {
           title: '系统admin',
         },
@@ -26,18 +26,20 @@ export default [
     },
     children: [
       { 
-        path: '', 
+        path: 'c1', 
         meta: {
           title: '系统admin c1',
         },
         component: () => import('_v/_demo-el-plus.admin/demo1/c1/index.vue'),
-      },
-      { 
-        path: '', 
-        meta: {
-          title: '系统admin c2',
-        },
-        component: () => import('_v/_demo-el-plus.admin/demo1/c2/index.vue'),
+        children: [
+          { 
+            path: 'c2', 
+            meta: {
+              title: '系统admin c2',
+            },
+            component: () => import('_v/_demo-el-plus.admin/demo1/c2/index.vue'),
+          },
+        ],
       },
     ],
   },
