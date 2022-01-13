@@ -13,6 +13,7 @@ export default defineComponent({
     getOrgTree().then(res => {
       console.log(res)
     })
+    
     return {
       color,
       changeColor,

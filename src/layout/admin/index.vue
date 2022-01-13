@@ -1,6 +1,6 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
-import SideBar from './SideBar/index.vue'
+import SideBar from './side-bar/index.vue'
 export default defineComponent({
   components: {
     SideBar,
@@ -15,14 +15,19 @@ export default defineComponent({
     <div class="admin-layout-side-bar-x">
       <SideBar></SideBar>
     </div>
-    <main>
-      <router-view></router-view>
+    <main sk-flex-grow="hidden">
+      <div class="admin-layout-main__inner">
+        <router-view></router-view>
+      </div>
     </main>
   </div>
-</template>
+</template> 
 <style>
 .admin-layout-x{
   height: 100%;
+}
+.admin-layout-main__inner{
+  width: 100%;
 }
 .admin-layout-side-bar-x{
   width: 300px;
