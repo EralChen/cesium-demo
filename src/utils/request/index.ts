@@ -15,7 +15,7 @@ const restFetch = new RestFetch({
   // },
 })
 interface InitOptions{
-  msg?: boolean;
+  msg?: boolean|string;
   loading?: boolean | LoadingOptions;
 }
 interface BaseResponse<T = unknown> {
@@ -49,7 +49,7 @@ async function request<T extends BaseResponse> (options: RequestOptions, init?: 
     if (init?.msg) { 
       ElMessage({
         type: 'success',
-        message: res.msg,
+        message: typeof init.msg === 'string' ? init.msg : res.msg,
       })
     }
   }
