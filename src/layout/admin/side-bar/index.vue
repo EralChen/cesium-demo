@@ -1,22 +1,15 @@
-<script lang="ts">
-import { computed, defineComponent } from 'vue'
+<script lang="ts" setup>
+import { computed } from 'vue'
 import NavLinkTree from '../NavLink/nav-link-tree/index.vue'
 import { useRoutesStore } from '@/store/routes'
-export default defineComponent({
-  components: {
-    NavLinkTree,
-  },
-  setup () {
-    const routesStore = useRoutesStore()
-    const routes = computed(() => routesStore.routes)
-    return {
-      routes,
-    }
-  },
-})
+import { ElInput } from 'element-plus'
+const routesStore = useRoutesStore()
+const routes = computed(() => routesStore.routes)
+
 </script>
 <template>
   <div class="admin-layout-side-bar">
+    <ElInput></ElInput>
     <NavLinkTree :data="routes">
     </NavLinkTree>
   </div>
