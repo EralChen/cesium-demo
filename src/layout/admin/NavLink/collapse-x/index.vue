@@ -2,16 +2,24 @@
 import { ref } from 'vue'
 import { VkCollapse } from 'vunk'
 import RightTriangle from './RightTriangle/index.vue'
-defineProps({
+const props = defineProps({
   icon: {
     type: Boolean,
     default: true,
   },
+  defaultShow: {
+    type: Boolean,
+    default: false,
+  },
+  hiddenBody: {
+    type: Boolean,
+    default: false,
+  },
 })
-const show = ref(false)
+const show = ref(props.defaultShow)
 </script>
 <template>
-  <VkCollapse v-model="show" class="admin-layout-nav-link-collapse-x">
+  <VkCollapse v-model="show" class="admin-layout-nav-link-collapse-x" :hiddenBody="hiddenBody">
 
     <template #header>
       <RightTriangle 

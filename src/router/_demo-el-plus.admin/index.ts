@@ -43,4 +43,17 @@ export default [
       },
     ],
   },
+  {
+    path: '/_demo-el-plus.admin/home',
+    component: AdminLayout,
+    children: [
+      {
+        path: '',
+        component: () => import('_v/_demo-el-plus.admin/home/index.vue'),
+        meta: {
+          title: '主页',
+        },
+      },
+    ],
+  },
 ] as RouteRecordRaw[]

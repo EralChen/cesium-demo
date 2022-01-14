@@ -32,15 +32,27 @@ export default defineComponent({
   <ul class="admin-layout-nav-link-ul" :class="`level${level}`">
     <!-- 如果meta中有hidden为true, 则隐藏该条  -->
     <template v-for="item of data" :key="item.path">
-      <li v-if="!item.meta?.hidden" class="admin-layout-nav-link-li">
-        <NavLink :to="getFullPath(item.path)" :event="!item.children?.length ? 'click': ''">
-          <template #title> <span class="admin-layout-nav-link-label">{{item.meta?.title}}</span> </template>
-          <AdminLayoutNavLinkTree 
-            v-if="item.children?.length" 
-            :data="item.children"
-            :baseUrl="getFullPath(item.path)"
-            :level="level+1"
-          ></AdminLayoutNavLinkTree>
+      <li 
+        v-if="!item.meta?.hidden" 
+        class="admin-layout-nav-link-li" 
+      >
+        <NavLink 
+          :to="getFullPath(item.path)" 
+          :event="!item.children?.length ? 'click': ''"
+          :hidden-body="!item.children?.length"
+        >
+          <template #title>
+            <span class="admin-layout-nav-link-label">{{item.meta?.title}}
+            {{ !item.children?.length }}
+          </span></template>
+          <template #body>
+            <AdminLayoutNavLinkTree 
+              :data="item.children"
+              :baseUrl="getFullPath(item.path)"
+              :level="level+1"
+            ></AdminLayoutNavLinkTree>
+          </template>
+
         </NavLink>
       </li>
     </template>
