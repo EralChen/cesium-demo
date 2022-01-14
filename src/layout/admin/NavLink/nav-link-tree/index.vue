@@ -25,6 +25,11 @@ export default defineComponent({
     getFullPath (path: string) {
       return path.startsWith('/') ? path : this.baseUrl + '/' + path
     },
+
+    hasChildren (route: RouteRecordRaw) {
+      return !!route.children?.length
+    },
+
   },
 })
 </script>
@@ -38,13 +43,12 @@ export default defineComponent({
       >
         <NavLink 
           :to="getFullPath(item.path)" 
-          :event="!item.children?.length ? 'click': ''"
-          :hidden-body="!item.children?.length"
+          :link-event="hasChildren(item) ? '': 'click'"
+          :hidden-body="!hasChildren(item)"
         >
           <template #title>
-            <span class="admin-layout-nav-link-label">{{item.meta?.title}}
-            {{ !item.children?.length }}
-          </span></template>
+            <span class="admin-layout-nav-link-label">{{item.meta?.title}}</span>
+          </template>
           <template #body>
             <AdminLayoutNavLinkTree 
               :data="item.children"

@@ -1,5 +1,5 @@
 <script lang="ts">
-import { defineComponent, PropType } from 'vue'
+import { computed, defineComponent, PropType } from 'vue'
 import CollapseX from '../collapse-x/index.vue'
 export default defineComponent({
   name: 'AdminLayoutNavLink',
@@ -7,7 +7,7 @@ export default defineComponent({
     CollapseX,
   },
   props: {
-    event: {
+    linkEvent: {
       type: String as PropType<keyof DocumentEventMap | ''>,
       default: 'click',
     },
@@ -20,20 +20,28 @@ export default defineComponent({
       default: false,
     },
   },
-  setup () {
-    return {}
+  setup (props) {
+    const hasChildren = computed(() => !props.linkEvent)
+    return {
+      hasChildren,
+    }
   },
 })
 </script>
 <template>
   <router-link :to="to" custom>
     <template #default="{ route, navigate, isActive, isExactActive }">
-      <CollapseX :icon="!event" :header-class="{
-        'is-dir': !event
-      }" :default-show="isActive" :hidden-body="hiddenBody">
+      <CollapseX 
+        :icon="hasChildren" 
+        :header-class="{
+          'is-dir': hasChildren
+        }" 
+        :default-show="isActive" 
+        :hidden-body="hiddenBody"
+      >
         <template #header>
           <a
-            @[event]="navigate"
+            @[linkEvent]="navigate"
             class="admin-layout-nav-link"
             :class="{
               'is-active': isActive,
