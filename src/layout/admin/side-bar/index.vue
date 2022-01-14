@@ -5,7 +5,6 @@ import { useRoutesStore } from '@/store/routes'
 import { ElInput } from 'element-plus'
 const routesStore = useRoutesStore()
 const routes = computed(() => routesStore.routes)
-
 </script>
 <template>
   <div class="admin-layout-side-bar">

@@ -1,5 +1,6 @@
 <script lang="ts">
 import { computed, defineComponent, PropType } from 'vue'
+import { RouteRecordRaw } from 'vue-router'
 import CollapseX from '../collapse-x/index.vue'
 export default defineComponent({
   name: 'AdminLayoutNavLink',
@@ -7,9 +8,13 @@ export default defineComponent({
     CollapseX,
   },
   props: {
-    linkEvent: {
-      type: String as PropType<keyof DocumentEventMap | ''>,
-      default: 'click',
+    onlyChild: {
+      type: Object as PropType<Partial<RouteRecordRaw>>,
+      default: undefined,
+    },
+    linkable: {
+      type: Boolean,
+      default: true,
     },
     to: {
       type: String,
@@ -21,7 +26,7 @@ export default defineComponent({
     },
   },
   setup (props) {
-    const hasChildren = computed(() => !props.linkEvent)
+    const hasChildren = computed(() => !props.onlyChild && !props.linkable)
     return {
       hasChildren,
     }
@@ -37,18 +42,18 @@ export default defineComponent({
           'is-dir': hasChildren
         }" 
         :default-show="isActive" 
-        :hidden-body="hiddenBody"
+        :hidden-body="!!onlyChild || hiddenBody"
       >
         <template #header>
           <a
-            @[linkEvent]="navigate"
+            @click="!hasChildren && navigate()"
             class="admin-layout-nav-link"
             :class="{
               'is-active': isActive,
               'is-exact-active': isExactActive,
             }"
           >
-            <slot name="title">{{ route.meta.title }}</slot>
+            <slot name="title" :only-child="onlyChild">{{ onlyChild?.meta?.title || route.meta.title }}</slot>
           </a>
         </template>
      

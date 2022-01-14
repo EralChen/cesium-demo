@@ -1,4 +1,4 @@
-import { RouteRecordRaw } from 'vue-router'
+import { RouteRecordRaw, RouterView } from 'vue-router'
 import AdminLayout from '@/layout/admin/index.vue'
 export default [
   {
@@ -11,7 +11,14 @@ export default [
       { 
         path: 'a', 
         meta: {
-          title: '系统admin',
+          title: '系统admin a',
+        },
+        component: () => import('_v/_demo-el-plus.admin/index.vue'),
+      },
+      { 
+        path: 'b', 
+        meta: {
+          title: '系统admin b',
         },
         component: () => import('_v/_demo-el-plus.admin/index.vue'),
       },
@@ -26,12 +33,19 @@ export default [
     },
     children: [
       { 
-        path: 'c1', 
+        path: 'g1', 
         meta: {
-          title: '系统admin c1',
+          title: '系统admin g1',
         },
-        component: () => import('_v/_demo-el-plus.admin/demo1/c1/index.vue'),
+        component: RouterView,
         children: [
+          { 
+            path: 'c1', 
+            meta: {
+              title: '系统admin c1',
+            },
+            component: () => import('_v/_demo-el-plus.admin/demo1/c1/index.vue'),
+          },
           { 
             path: 'c2', 
             meta: {

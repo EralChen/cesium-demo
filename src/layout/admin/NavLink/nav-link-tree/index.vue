@@ -29,7 +29,24 @@ export default defineComponent({
     hasChildren (route: RouteRecordRaw) {
       return !!route.children?.length
     },
-
+  
+    getOnlyChildInfo (pRoute: RouteRecordRaw): Partial<RouteRecordRaw> | undefined {
+      // 如果一个route仅有一个可用路由，则合并这个route，用于渲染
+      if (pRoute.meta?.alwaysShow) return
+      if (!pRoute.children) return
+      const routes = pRoute.children.filter(item => !item.meta?.hidden)
+      if (routes.length === 1) {
+        const theOnly = routes[0]
+        if (!theOnly.children?.length) { // 如果这个route 没有children
+          return {
+            path: theOnly.path,
+            component: theOnly.component,
+            meta: theOnly.meta,
+          }
+        }
+      }
+       
+    },
   },
 })
 </script>
@@ -42,12 +59,15 @@ export default defineComponent({
         class="admin-layout-nav-link-li" 
       >
         <NavLink 
+          :only-child="getOnlyChildInfo(item)"
           :to="getFullPath(item.path)" 
-          :link-event="hasChildren(item) ? '': 'click'"
+          :linkable="!hasChildren(item)"
           :hidden-body="!hasChildren(item)"
         >
-          <template #title>
-            <span class="admin-layout-nav-link-label">{{item.meta?.title}}</span>
+          <template #title="{onlyChild}">
+            <span class="admin-layout-nav-link-label">
+              {{ onlyChild?.meta?.title || item.meta?.title}}
+            </span>
           </template>
           <template #body>
             <AdminLayoutNavLinkTree 
