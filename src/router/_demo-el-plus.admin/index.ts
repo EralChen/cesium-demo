@@ -2,6 +2,19 @@ import { RouteRecordRaw, RouterView } from 'vue-router'
 import AdminLayout from '@/layout/admin/index.vue'
 export default [
   {
+    path: '/_demo-el-plus.admin/home',
+    component: AdminLayout,
+    children: [
+      {
+        path: '',
+        component: () => import('_v/_demo-el-plus.admin/home/index.vue'),
+        meta: {
+          title: '主页',
+        },
+      },
+    ],
+  },
+  {
     path: '/_demo-el-plus.admin',
     component: AdminLayout,
     meta: {
@@ -57,17 +70,5 @@ export default [
       },
     ],
   },
-  {
-    path: '/_demo-el-plus.admin/home',
-    component: AdminLayout,
-    children: [
-      {
-        path: '',
-        component: () => import('_v/_demo-el-plus.admin/home/index.vue'),
-        meta: {
-          title: '主页',
-        },
-      },
-    ],
-  },
+
 ] as RouteRecordRaw[]
