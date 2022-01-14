@@ -34,7 +34,7 @@ export default defineComponent({
     <template v-for="item of data" :key="item.path">
       <li v-if="!item.meta?.hidden" class="admin-layout-nav-link-li">
         <NavLink :to="getFullPath(item.path)" :event="!item.children?.length ? 'click': ''">
-          <template #title> <span>{{item.meta?.title}}</span> </template>
+          <template #title> <span class="admin-layout-nav-link-label">{{item.meta?.title}}</span> </template>
           <AdminLayoutNavLinkTree 
             v-if="item.children?.length" 
             :data="item.children"
@@ -54,6 +54,11 @@ export default defineComponent({
   margin-left: var(--gap-s);
 }
 .admin-layout-nav-link-ul a.is-exact-active{
-  color: var(--c-info);
+  color: var(--c-text-active);
+  background: var(--c-bg-active)
+}
+.admin-layout-nav-link-label, .admin-layout-nav-link{
+  display: block;
+  width: 100%;  
 }
 </style>

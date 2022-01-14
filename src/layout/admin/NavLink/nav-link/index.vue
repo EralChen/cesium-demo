@@ -29,14 +29,16 @@ export default defineComponent({
 <template>
   <router-link :to="to" custom>
     <template #default="{ route, navigate, isActive, isExactActive }">
-      <CollapseX>
+      <CollapseX :icon="!event" :header-class="{
+        'is-dir': !event
+      }">
         <template #header>
           <a
             @[event]="navigate"
             class="admin-layout-nav-link"
             :class="{
               'is-active': isActive,
-              'is-exact-active': isExactActive
+              'is-exact-active': isExactActive,
             }"
           >
             <slot name="title">{{ route.meta.title }}</slot>

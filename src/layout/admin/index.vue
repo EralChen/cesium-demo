@@ -25,12 +25,18 @@ export default defineComponent({
 <style>
 .admin-layout-x{
   height: 100%;
+  --c-side-bar-bg: white;
+  --c-main-bg: #f7f7f7;
 }
 .admin-layout-main__inner{
   width: 100%;
+  background-color: var(--c-main-bg);
 }
 .admin-layout-side-bar-x{
   width: 300px;
   height: 100%;
+  border-radius: 4px;
+  padding: 1em;
+  background-color: var(--c-side-bar-bg);
 }
 </style>
