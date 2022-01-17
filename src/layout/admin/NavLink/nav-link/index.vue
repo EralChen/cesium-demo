@@ -8,10 +8,6 @@ export default defineComponent({
     CollapseX,
   },
   props: {
-    onlyChild: {
-      type: Object as PropType<Partial<RouteRecordRaw>>,
-      default: undefined,
-    },
     linkable: {
       type: Boolean,
       default: true,
@@ -26,7 +22,7 @@ export default defineComponent({
     },
   },
   setup (props) {
-    const hasChildren = computed(() => !props.onlyChild && !props.linkable)
+    const hasChildren = computed(() => !props.linkable)
     return {
       hasChildren,
     }
@@ -42,7 +38,7 @@ export default defineComponent({
           'is-dir': hasChildren
         }" 
         :default-show="isActive" 
-        :hidden-body="!!onlyChild || hiddenBody"
+        :hidden-body="hiddenBody"
       >
         <template #header>
           <a
@@ -53,7 +49,7 @@ export default defineComponent({
               'is-exact-active': isExactActive,
             }"
           >
-            <slot name="title" :only-child="onlyChild">{{ onlyChild?.meta?.title || route.meta.title }}</slot>
+            <slot name="title">{{ route.meta.title }}</slot>
           </a>
         </template>
      

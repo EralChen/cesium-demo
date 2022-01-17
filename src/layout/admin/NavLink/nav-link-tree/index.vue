@@ -22,30 +22,39 @@ export default defineComponent({
     },
   },
   methods: {
-    getFullPath (path: string) {
-      return path.startsWith('/') ? path : this.baseUrl + '/' + path
+    getFullPath (path: string, pPath?: string) {
+      return path.startsWith('/') ? path : (pPath || this.baseUrl) + '/' + path
     },
 
     hasChildren (route: RouteRecordRaw) {
       return !!route.children?.length
     },
-  
-    getOnlyChildInfo (pRoute: RouteRecordRaw): Partial<RouteRecordRaw> | undefined {
-      // 如果一个route仅有一个可用路由，则合并这个route，用于渲染
-      if (pRoute.meta?.alwaysShow) return
-      if (!pRoute.children) return
+
+    mergeRoute (pRoute: RouteRecordRaw):RouteRecordRaw  {
+      // 合并 只有一个儿子 的 route
+      if (!pRoute.children || pRoute.meta?.alwaysShow) return pRoute
       const routes = pRoute.children.filter(item => !item.meta?.hidden)
       if (routes.length === 1) {
-        const theOnly = routes[0]
-        if (!theOnly.children?.length) { // 如果这个route 没有children
-          return {
-            path: theOnly.path,
-            component: theOnly.component,
-            meta: theOnly.meta,
-          }
+        let only = routes[0]
+        only = {
+          ...only,
+          path: this.getFullPath(only.path, pRoute.path),
+          meta: only.meta,
+          children: only.children,
         }
+        if (only.children?.length) { //如果这个route 还有children
+          return this.mergeRoute(only)
+        }
+        return only  
+      } else {
+        return pRoute
       }
-       
+    },
+
+    * genRoutes (routes: RouteRecordRaw[]) {
+      for (const route of routes) {
+        yield this.mergeRoute(route)
+      }
     },
   },
 })
@@ -53,20 +62,20 @@ export default defineComponent({
 <template>
   <ul class="admin-layout-nav-link-ul" :class="`level${level}`">
     <!-- 如果meta中有hidden为true, 则隐藏该条  -->
-    <template v-for="item of data" :key="item.path">
+    <template v-for="item of genRoutes(data)" :key="item.path">
       <li 
         v-if="!item.meta?.hidden" 
         class="admin-layout-nav-link-li" 
       >
+        <!-- 叶子节点可导航, 叶子节点不需要body -->
         <NavLink 
-          :only-child="getOnlyChildInfo(item)"
           :to="getFullPath(item.path)" 
           :linkable="!hasChildren(item)"
           :hidden-body="!hasChildren(item)"
         >
-          <template #title="{onlyChild}">
+          <template #title>
             <span class="admin-layout-nav-link-label">
-              {{ onlyChild?.meta?.title || item.meta?.title}}
+              {{ item.meta?.title}}
             </span>
           </template>
           <template #body>
