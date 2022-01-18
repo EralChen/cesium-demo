@@ -1,6 +1,5 @@
 <script lang="ts">
-import { computed, defineComponent, PropType } from 'vue'
-import { RouteRecordRaw } from 'vue-router'
+import { computed, defineComponent, ref, watch } from 'vue'
 import CollapseX from '../collapse-x/index.vue'
 export default defineComponent({
   name: 'AdminLayoutNavLink',
@@ -20,11 +19,20 @@ export default defineComponent({
       type: Boolean,
       default: false,
     },
+    expandBody: {
+      type: Boolean,
+      default: false,
+    },
   },
   setup (props) {
     const hasChildren = computed(() => !props.linkable)
+    const collapseShow = ref(props.expandBody)
+    watch(() => props.expandBody, (v) => {
+      collapseShow.value =  v
+    }, { immediate: true })
     return {
       hasChildren,
+      collapseShow,
     }
   },
 })
@@ -37,7 +45,7 @@ export default defineComponent({
         :header-class="{
           'is-dir': hasChildren
         }" 
-        :default-show="isActive" 
+        v-model="collapseShow"
         :hidden-body="hiddenBody"
       >
         <template #header>

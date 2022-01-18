@@ -1,15 +1,50 @@
 <script lang="ts" setup>
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 import NavLinkTree from '../NavLink/nav-link-tree/index.vue'
 import { useRoutesStore } from '@/store/routes'
 import { ElInput } from 'element-plus'
+import { RouteRecordRaw } from 'vue-router'
 const routesStore = useRoutesStore()
 const routes = computed(() => routesStore.routes)
+// filter 过滤菜单
+const expandLevel = ref(0)
+const filterTitle = ref('')
+const filterSymbol = Symbol('check-true')
+const includesTitle = (route: RouteRecordRaw) => !!route.meta?.title?.includes(filterTitle.value)
+const filterNode = computed(() => {
+  return (route: RouteRecordRaw) => {
+    // 是否已被标记命中
+    if (route.meta?.[filterSymbol]) return true
+    // 如果命中了父节点，则标记所有子节点为命中
+    let currentFlag = includesTitle(route)
+    let childFlag = false   // 如果命中了子节点，则展示该父节点
+    route.children?.forEach(item => {
+      if (includesTitle(item)) {
+        childFlag = true
+      }
+      if (item.meta) {
+        item.meta[filterSymbol] = currentFlag
+      } else {
+        item.meta = {
+          [filterSymbol]: currentFlag,
+        }  
+      }
+    })
+
+    return currentFlag || childFlag 
+  }
+})
+// filter 过滤菜单 end
+
 </script>
 <template>
   <div class="admin-layout-side-bar">
-    <ElInput></ElInput>
-    <NavLinkTree :data="routes">
+    <ElInput v-model="filterTitle" @change="expandLevel = 5"></ElInput>
+    <NavLinkTree 
+      :data="routes"
+      :expand-level="expandLevel"
+      :filter-node-method="filterNode"
+    >
     </NavLinkTree>
   </div>
 </template>

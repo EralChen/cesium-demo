@@ -1,13 +1,12 @@
 <script lang="ts" setup>
-import { ref } from 'vue'
 import { VkCollapse } from 'vunk'
 import RightTriangle from './RightTriangle/index.vue'
-const props = defineProps({
+defineProps({
   icon: {
     type: Boolean,
     default: true,
   },
-  defaultShow: {
+  modelValue: {
     type: Boolean,
     default: false,
   },
@@ -16,16 +15,21 @@ const props = defineProps({
     default: false,
   },
 })
-const show = ref(props.defaultShow)
+defineEmits({
+  'update:model-value': (e: boolean) => typeof e === 'boolean',
+})
 </script>
 <template>
-  <VkCollapse v-model="show" class="admin-layout-nav-link-collapse-x" :hiddenBody="hiddenBody">
+  <VkCollapse  
+   :modelValue="modelValue"
+   @update:modelValue="$emit('update:model-value', $event)"
+   class="admin-layout-nav-link-collapse-x" :hiddenBody="hiddenBody">
 
     <template #header>
       <RightTriangle 
         v-if="icon" 
         :class="{
-          'is-active': show
+          'is-active': modelValue
         }"
         :size="'1.2em'"
       ></RightTriangle>
