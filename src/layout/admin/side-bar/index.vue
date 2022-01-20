@@ -71,7 +71,7 @@ const filterNode = computed(() => {
     border-radius: 4px;
     margin-top: .2em;
     margin-bottom: .2em;
-    &:not(.is-active):hover{
+    &:not(.is-exact-active):hover{
       background-color: var(--c-hover-bg);
     }
   }

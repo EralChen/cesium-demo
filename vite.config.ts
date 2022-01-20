@@ -35,6 +35,7 @@ export default defineConfig(({ mode }) => {
         // Specify symbolId format
         symbolId: 'icon-[dir]-[name]',
       }),
+
     ],
   }
 
