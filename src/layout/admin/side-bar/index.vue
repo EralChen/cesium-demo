@@ -10,14 +10,14 @@ const routes = computed(() => routesStore.routes)
 const expandLevel = ref(0)
 const filterTitle = ref('')
 const filterSymbol = Symbol('check-true')
-const includesTitle = (route: RouteRecordRaw) => !!route.meta?.title?.includes(filterTitle.value)
+const includesTitle = (route: RouteRecordRaw) => !!route.meta?.title?.toLocaleLowerCase().includes(filterTitle.value.toLocaleLowerCase())
 const filterNode = computed(() => {
   return (route: RouteRecordRaw) => {
     // 是否已被标记命中
     if (route.meta?.[filterSymbol]) return true
     // 如果命中了父节点，则标记所有子节点为命中
     let currentFlag = includesTitle(route)
-    let childFlag = false   // 如果命中了子节点，则展示该父节点
+    let childFlag = false   // 如果命中了子节点，则展示继续展示该父节点
     route.children?.forEach(item => {
       if (includesTitle(item)) {
         childFlag = true
