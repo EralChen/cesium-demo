@@ -1,5 +1,6 @@
 <script lang="ts">
 import { computed, defineComponent, ref, watch } from 'vue'
+import { useRoute } from 'vue-router'
 import CollapseX from '../collapse-x/index.vue'
 export default defineComponent({
   name: 'AdminLayoutNavLink',
@@ -27,8 +28,15 @@ export default defineComponent({
   setup (props) {
     const hasChildren = computed(() => !props.linkable)
     const collapseShow = ref(props.expandBody)
+    const route = useRoute()
     watch(() => props.expandBody, (v) => {
       collapseShow.value =  v
+    }, { immediate: true })
+
+    watch(route, (v) => { // 如果这条路由的子节点是当前访问节点,则展开这个节点
+      if (v.fullPath.includes(props.to)) {
+        collapseShow.value = true
+      }
     }, { immediate: true })
     return {
       hasChildren,

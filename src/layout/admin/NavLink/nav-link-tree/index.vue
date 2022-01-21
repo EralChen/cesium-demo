@@ -83,7 +83,9 @@ export default defineComponent({
           :expand-body="level <= expandLevel"
         >
           <template #title>
-            <span class="admin-layout-nav-link-label">{{ item.meta?.title }}</span>
+            <span class="admin-layout-nav-link-label">
+              {{ item.meta?.title }}
+            </span>
           </template>
           <template #body>
             <AdminLayoutNavLinkTree

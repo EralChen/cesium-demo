@@ -15,7 +15,7 @@ export default [
     ],
   },
   {
-    path: '/_demo-el-plus.admin',
+    path: '/_demo-el-plus.admin/demo0',
     component: AdminLayout,
     meta: {
       title: '系统admin Parent',
