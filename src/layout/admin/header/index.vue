@@ -4,15 +4,12 @@ import { useRoute, RouteLocationNormalizedLoaded } from 'vue-router'
 
 export default defineComponent({
   setup () {
-    // const router = useRouter() 
     const route = useRoute()
-    const visitedViews = ref<RouteLocationNormalizedLoaded[]>([])
+    const visitedViews = ref<Record<string, RouteLocationNormalizedLoaded>>({})
     
     watch(route, (v) => {
-      visitedViews.value.push(
-        JSON.parse(JSON.stringify(v)),
-      )
-      
+      const doc = JSON.parse(JSON.stringify(v)) as RouteLocationNormalizedLoaded
+      visitedViews.value[doc.fullPath] = doc
     }, { immediate: true })
 
     return {
@@ -22,9 +19,9 @@ export default defineComponent({
 })
 </script>
 <template>
-  <ul class="test-ul">
+  <ul class="test-ul" sk-flex="row">
     <li v-for="item of visitedViews" :key="item.fullPath">
-      {{ item.meta.title }}
+      <router-link :to="item.fullPath">{{ item.meta.title }}</router-link> 
     </li>
   </ul>
 </template>
