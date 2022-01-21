@@ -1,7 +1,7 @@
 <script lang="ts">
 import { setRootStyle } from '@/utils/root'
 import { defineComponent, ref } from 'vue'
-import { getOrgTree } from '@/api/demo'
+import { getOrgTree } from '@/api/_demo-el-plus'
 export default defineComponent({
   setup () {
     const color = ref('')
