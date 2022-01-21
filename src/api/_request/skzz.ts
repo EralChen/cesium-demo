@@ -3,4 +3,4 @@ const skzzRestFetch = new SkzzRestFetch({
   baseURL: import.meta.env.VITE_BASE_API,
 })
 
-export default skzzRestFetch.skzzRequest.bind(skzzRestFetch)
+export default skzzRestFetch.request.bind(skzzRestFetch)
