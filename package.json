@@ -13,7 +13,7 @@
     "qs": "^6.10.2",
     "vue": "^3.2.26",
     "vue-router": "^4.0.12",
-    "vunk": "^0.0.0-alpha.9"
+    "vunk": "^0.0.0-alpha.15"
   },
   "devDependencies": {
     "@types/node": "^17.0.5",
