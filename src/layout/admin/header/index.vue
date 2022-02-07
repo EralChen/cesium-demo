@@ -19,14 +19,23 @@ export default defineComponent({
 })
 </script>
 <template>
-  <ul class="test-ul" sk-flex="row">
+  <ul class="layout-admin-header-link-ul" sk-flex="row">
     <li v-for="item of visitedViews" :key="item.fullPath">
-      <router-link :to="item.fullPath">{{ item.meta.title }}</router-link> 
+      <router-link :to="item.fullPath">{{ item.meta.title }}
+      </router-link> 
     </li>
   </ul>
 </template>
-<style>
-.test-ul{
-  background-color: gold;
+<style lang="scss">
+.layout-admin-header-link-ul{
+  background-color: var(--c-bg);
+  padding: .5em;
+  li{
+    padding: .1em .4em;
+    border: 1px solid var(--c-border);
+  }
+  > * + * {
+    margin-left: var(--gap-xxs);
+  }
 }
 </style>

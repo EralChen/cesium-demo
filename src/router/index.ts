@@ -8,7 +8,7 @@ export const routes: Array<RouteRecordRaw> = [
   ...DEMO_EL_PLUS__ADMIN,
   {
     path: '/',
-    redirect: '/_demo-el-plus.admin/demo1/c1/c2',
+    redirect: '/_demo-el-plus.admin/home',
     meta: {
       hidden: true,
     },
