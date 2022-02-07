@@ -1,5 +1,5 @@
 <script lang="ts">
-import { computed, defineComponent, ref, watch } from 'vue'
+import { defineComponent, ref, watch } from 'vue'
 import { useRoute, RouteLocationNormalizedLoaded, useRouter } from 'vue-router'
 import { VkBoxHandler } from 'vunk'
 type ViewRoute = Omit<RouteLocationNormalizedLoaded, 'redirectedFrom' | 'matched'>
@@ -11,7 +11,7 @@ export default defineComponent({
     const route = useRoute()
     const router = useRouter()
     const visitedViews = ref<Map<string, ViewRoute>>(new Map())
-    const visitedViewsSize = computed(() => visitedViews.value.size)
+
     watch(route, (v) => {
       const doc = JSON.parse(JSON.stringify({
         fullPath: v.fullPath.endsWith('/') ? v.fullPath.slice(0, -1) : v.fullPath,
@@ -43,7 +43,6 @@ export default defineComponent({
     return {
       visitedViews,
       delVisitedViews,
-      visitedViewsSize,
     }
   },
 })
@@ -56,9 +55,9 @@ export default defineComponent({
           <VkBoxHandler :class="'r'">
             <svg-icon
               :icon-class="'close'"
-              v-show="visitedViewsSize - 1"
+              v-show="visitedViews.size - 1"
               @click.prevent="delVisitedViews(key, isExactActive)"
-            >错</svg-icon>
+            ></svg-icon>
           </VkBoxHandler>
           {{ item.meta.title }}
         </template>
