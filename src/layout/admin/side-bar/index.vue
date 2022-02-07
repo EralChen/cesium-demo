@@ -50,14 +50,14 @@ const filterNode = computed(() => {
 </template>
 <style>
 .admin-layout-side-bar {
-  --c-bg: #f0f0f0;
+  --c-bg: var(--c-bg);
   --c-hover-bg: #f0f0f0;
 
   --c-dir: #9f9f9f;
 
-  --c-text: #171719;
-  --c-text-active: #f0f0f0;
-  --c-bg-active: #4059f2;
+  --c-text: var(--c-content);
+  --c-text-active: var(--ic-content);
+  --c-bg-active: var(--c-info);
 }
 </style>
 <style lang="scss">
