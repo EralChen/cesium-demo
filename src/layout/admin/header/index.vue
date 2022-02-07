@@ -26,7 +26,6 @@ export default defineComponent({
     }, { immediate: true })
 
     const delVisitedViews = (key: string, isExactActive: boolean) => {
-
       [...visitedViews.value].some(([k], index, arr) => {
         if (k === key) {
           visitedViews.value.delete(key)
@@ -37,7 +36,6 @@ export default defineComponent({
           return true
         }
       })
-
     }
 
     return {
