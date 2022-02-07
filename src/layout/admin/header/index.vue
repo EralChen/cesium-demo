@@ -22,11 +22,18 @@ export default defineComponent({
     }, { immediate: true })
 
     const delVisitedViews = (key: string, isExactActive: boolean) => {
-      visitedViews.value.delete(key)
-      if (isExactActive) {
-        const pre = [...visitedViews.value][visitedViews.value.size - 1][1]
-        router.push(pre)
-      }
+      
+      [...visitedViews.value].some(([k], index, arr) => {
+        if (k === key) {
+          visitedViews.value.delete(key)
+          if (isExactActive) {
+            const pre =  arr[index + 1 >= arr.length ? index - 1 : index + 1][1]
+            router.push(pre)
+          }
+          return true
+        }
+      })
+
     }
 
     return {
