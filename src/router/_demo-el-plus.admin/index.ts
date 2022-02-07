@@ -9,6 +9,7 @@ export default [
         path: '',
         component: () => import('_v/_demo-el-plus.admin/home/index.vue'),
         meta: {
+          icon: 'layout-admin-home',
           title: '主页',
         },
       },

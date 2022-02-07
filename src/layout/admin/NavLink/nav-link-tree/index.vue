@@ -83,9 +83,13 @@ export default defineComponent({
           :expand-body="level <= expandLevel"
         >
           <template #title>
-            <span class="admin-layout-nav-link-label">
-              {{ item.meta?.title }}
-            </span>
+            <p sk-flex="row_center" class="sub-ml-xxxs">
+              <SvgIcon v-if="item.meta?.icon" :icon-class="item.meta?.icon"></SvgIcon>
+              <span class="admin-layout-nav-link-label">
+                {{ item.meta?.title }}
+              </span>
+            </p>
+
           </template>
           <template #body>
             <AdminLayoutNavLinkTree
