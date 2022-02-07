@@ -14,17 +14,33 @@ export default defineConfig(({ mode }) => {
   const env = getEnv(mode)
   return {
     base: env.VITE_BASE_URL + '/',
+    css: {
+      postcss: {
+        plugins: [
+          {
+            postcssPlugin: 'internal:charset-removal',
+            AtRule: {
+              charset: (atRule) => {
+                if (atRule.name === 'charset') {
+                  atRule.remove()
+                }
+              },
+            },
+          },
+        ],
+      },
+    },
     build: {
-      outDir: path.resolve(workRoot,'./dist' + env.VITE_BASE_URL),
+      outDir: path.resolve(workRoot, './dist' + env.VITE_BASE_URL),
     },
     server: {
       host: '0.0.0.0',
     },
     resolve: {
       alias: {
-        '_v': path.resolve(srcRoot,'./views'),
-        '_c': path.resolve(srcRoot,'./components'),
-        '@': path.resolve(srcRoot,'.'),
+        '_v': path.resolve(srcRoot, './views'),
+        '_c': path.resolve(srcRoot, './components'),
+        '@': path.resolve(srcRoot, '.'),
       },
     },
 
@@ -38,7 +54,7 @@ export default defineConfig(({ mode }) => {
       viteExternalsPlugin(),
       createSvgIconsPlugin({
         // Specify the icon folder to be cached
-        iconDirs: [path.resolve(srcRoot,'./icons/svg')],
+        iconDirs: [path.resolve(srcRoot, './icons/svg')],
         // Specify symbolId format
         symbolId: 'icon-[dir]-[name]',
       }),

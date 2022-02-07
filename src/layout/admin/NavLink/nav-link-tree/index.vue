@@ -73,8 +73,8 @@ export default defineComponent({
 <template>
   <ul class="admin-layout-nav-link-ul" :class="`level${level}`">
     <!-- 如果meta中有hidden为true, 则隐藏该条  -->
-    <template v-for="item of genRoutes(data)" :key="item.path">
-      <li v-if="!item.meta?.hidden" class="admin-layout-nav-link-li">
+    <template v-for="item of genRoutes(data)">
+      <li v-if="!item.meta?.hidden" class="admin-layout-nav-link-li" :key="item.path">
         <!-- 叶子节点可导航, 叶子节点不需要body -->
         <NavLink
           :to="getFullPath(item.path)"
