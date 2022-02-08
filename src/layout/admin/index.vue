@@ -12,7 +12,7 @@ const hamburgerActive = ref(true)
   <div class="admin-layout-x" sk-flex="row">
     <div class="admin-layout-side-bar-x" 
       :class="{
-        'is-hidden': hamburgerActive,
+        'is-hidden': !hamburgerActive,
         'is-absolute': sm
       }"
     >
