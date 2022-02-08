@@ -1,13 +1,41 @@
 <script lang="ts">
+import { useRoutesStore } from '@/store/routes'
+import { resolveFullPath } from '@/utils/route'
 import { defineComponent, ref, watch } from 'vue'
-import { useRoute, RouteLocationNormalizedLoaded, useRouter } from 'vue-router'
+import { useRoute, RouteLocationNormalizedLoaded, useRouter, RouteRecordRaw } from 'vue-router'
 type ViewRoute = Omit<RouteLocationNormalizedLoaded, 'redirectedFrom' | 'matched'>
+const filterAffixTags = (routes: RouteRecordRaw[], basePath = '') => {
+  let tags: Map<string, ViewRoute> = new Map()
+
+  routes.forEach(route => {
+    const fullPath = resolveFullPath(route.path, basePath)
+    if (route.meta && route.meta.affix) {
+      tags.set(fullPath, {
+        fullPath,
+        hash: '',
+        meta: route.meta,
+        name: route.name,
+        params: {},
+        path: route.path,
+        query: {},
+      })
+    }
+    if (route.children) {
+      const sTags = filterAffixTags(route.children, fullPath)
+      if (sTags.size >= 1) {
+        tags = new Map([...tags, ...sTags])
+      }
+    }
+  })
+  return tags
+}
 export default defineComponent({
   setup () {
+    const routesStore = useRoutesStore()
     const route = useRoute()
     const router = useRouter()
-    const visitedViews = ref<Map<string, ViewRoute>>(new Map())
-
+    const visitedViews = ref<Map<string, ViewRoute>>(filterAffixTags(routesStore.routes))
+  
     watch(route, (v) => {
       const doc = JSON.parse(JSON.stringify({
         fullPath: v.fullPath.endsWith('/') ? v.fullPath.slice(0, -1) : v.fullPath,
@@ -49,7 +77,8 @@ export default defineComponent({
           {{ item.meta.title }}
           <svg-icon
             :icon-class="'close'"
-            v-show="visitedViews.size - 1"
+            v-show="!item.meta.affix"
+          
             @click.prevent="delVisitedViews(key, isExactActive)"
           ></svg-icon>
         </template>

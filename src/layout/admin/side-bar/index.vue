@@ -10,7 +10,7 @@ const routes = computed(() => routesStore.routes)
 // filter 过滤菜单
 const expandLevel = ref(0)
 const filterTitle = ref('')
-const filterSymbol = Symbol('check-true')
+const filterSymbol = Symbol('filter-true')
 const includesTitle = (route: RouteRecordRaw) => !!route.meta?.title?.toLocaleLowerCase().includes(filterTitle.value.toLocaleLowerCase())
 const filterNode = computed(() => {
   return (route: RouteRecordRaw) => {

@@ -11,6 +11,7 @@ export default [
         meta: {
           icon: 'layout-admin-home',
           title: '主页',
+          affix: true,
         },
       },
     ],
@@ -57,6 +58,7 @@ export default [
             path: 'c1', 
             meta: {
               title: '系统admin c1',
+              affix: true,
             },
             component: () => import('_v/_demo-el-plus.admin/demo1/c1/index.vue'),
           },
