@@ -1,5 +1,5 @@
 :root{
-  font-size: calc(1vw + .5em);
+  font-size: calc(1vw + .8em);
   --f-xxxl: 1.8rem;
   --f-xxl: 1.4rem;
   --f-xl: 1.2rem;
@@ -15,7 +15,6 @@ body{
 }
 h1{
   font-size: var(--f-l);
-  
 }
 h2{
   font-size: var(--f-s);

@@ -19,7 +19,7 @@ const hamburgerActive = ref(true)
       <SideBar></SideBar>
     </div>
     <main sk-flex-grow="hidden">
-      <div class="admin-layout-main__header">
+      <div class="admin-layout-main__header" v-show="!sm">
         <HeaderVue v-model:hamburger-active="hamburgerActive"></HeaderVue>
       </div>
       <div class="admin-layout-main__inner" sk-flex-grow="hidden">

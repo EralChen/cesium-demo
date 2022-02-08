@@ -92,7 +92,6 @@ export default defineComponent({
   li {
     .icon-close {
       border-radius: 50%;
-      transition: all 0.4s ease;
     }
 
 
