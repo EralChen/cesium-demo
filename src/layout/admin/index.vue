@@ -1,25 +1,26 @@
-<script lang="ts">
-import { defineComponent } from 'vue'
+<script lang="ts" setup>
 import SideBar from './side-bar/index.vue'
 import HeaderVue from './header/index.vue'
-export default defineComponent({
-  components: {
-    SideBar,
-    HeaderVue,
-  },
-  setup () {
-    return {}
-  },
-})
+import { Breakpoints, sBreakpoints } from '@/components/AppWrapper/index.vue'
+import { inject, ref } from 'vue'
+const bp = inject<Breakpoints>(sBreakpoints)
+if (!bp) throw new Error()
+const sm = bp.smaller('tablet')
+const hamburgerActive = ref(true)
 </script>
 <template>
   <div class="admin-layout-x" sk-flex="row">
-    <div class="admin-layout-side-bar-x">
+    <div class="admin-layout-side-bar-x" 
+      :class="{
+        'is-hidden': hamburgerActive,
+        'is-absolute': sm
+      }"
+    >
       <SideBar></SideBar>
     </div>
     <main sk-flex-grow="hidden">
       <div class="admin-layout-main__header">
-        <HeaderVue></HeaderVue>
+        <HeaderVue v-model:hamburger-active="hamburgerActive"></HeaderVue>
       </div>
       <div class="admin-layout-main__inner" sk-flex-grow="hidden">
         <router-view></router-view>
@@ -27,7 +28,7 @@ export default defineComponent({
     </main>
   </div>
 </template> 
-<style>
+<style lang="scss">
 .admin-layout-x{
   height: 100%;
   --c-side-bar-bg: white;
@@ -41,10 +42,19 @@ export default defineComponent({
   width: 100%;
 }
 .admin-layout-side-bar-x{
-  width: 300px;
   height: 100%;
   border-radius: 4px;
   padding: 1em;
   background-color: var(--c-side-bar-bg);
+  transition: all .8s ease;
+  z-index: 2;
+  &.is-absolute{
+    position: absolute;
+
+  }
+  &.is-hidden{
+    position: absolute;
+    transform: translateX(-100%);
+  }
 }
 </style>

@@ -47,10 +47,11 @@ export default defineConfig(({ mode }) => {
     plugins: [
       vue(),
       vueJSX(),
-      windowEnv(),
+     
       legacy({
         modernPolyfills: ['esnext.array.at'],
       }),
+      windowEnv(),
       viteExternalsPlugin(),
       createSvgIconsPlugin({
         // Specify the icon folder to be cached

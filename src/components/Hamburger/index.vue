@@ -1,7 +1,7 @@
 <template>
-  <div style="padding: 0 15px" @click="toggleClick">
+  <div @click="toggleClick">
     <svg
-      :class="{ 'is-active': isActive }"
+      :class="{ 'is-active': modelValue }"
       class="hamburger"
       viewBox="0 0 1024 1024"
       xmlns="http://www.w3.org/2000/svg"
@@ -19,14 +19,14 @@
 export default {
   name: 'Hamburger',
   props: {
-    isActive: {
+    modelValue: {
       type: Boolean,
       default: false,
     },
   },
   methods: {
     toggleClick () {
-      this.$emit('toggleClick')
+      this.$emit('update:modelValue', !this.modelValue)
     },
   },
 }
@@ -38,6 +38,7 @@ export default {
   vertical-align: middle;
   width: 20px;
   height: 20px;
+  cursor: pointer;
 }
 
 .hamburger.is-active {
