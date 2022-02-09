@@ -1,22 +1,16 @@
-<script lang="ts">
-import { defineComponent } from 'vue'
+<script lang="ts" setup>
+import { inject } from 'vue'
 import VisitedViews from './visited-views/index.vue'
 import Hamburger from '_c/Hamburger/index.vue'
-export default defineComponent({
-  props: {
-    hamburgerActive: {
-      type: Boolean,
-      default: true,
-    },
-  },
-  components: {
-    VisitedViews,
-    Hamburger,
-  },
-  setup () {
-    return {}
+import { sBreakpoints, Breakpoints } from '@/components/AppWrapper/index.vue'
+defineProps({
+  hamburgerActive: {
+    type: Boolean,
+    default: true,
   },
 })
+const bp = inject<Breakpoints>(sBreakpoints)
+const lgTablet = bp?.greater('tablet')
 </script>
 <template>
   <div class="layout-admin-header-x">
@@ -24,7 +18,7 @@ export default defineComponent({
       :modelValue="hamburgerActive"
       @update:modelValue="$emit('update:hamburgerActive', $event)"
     ></Hamburger>
-    <VisitedViews></VisitedViews>
+    <VisitedViews v-if="lgTablet"></VisitedViews>
   </div>
 </template>
 <style lang="scss">
