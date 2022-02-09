@@ -8,7 +8,7 @@ import path from 'path'
 import { srcRoot, workRoot } from './config/path'
 import legacy from '@vitejs/plugin-legacy'
 import { viteExternalsPlugin } from 'vite-plugin-externals'
-
+import Markdown from 'vite-plugin-md'
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => {
   const env = getEnv(mode)
@@ -45,9 +45,11 @@ export default defineConfig(({ mode }) => {
     },
 
     plugins: [
-      vue(),
+      vue({
+        include: [/\.vue$/, /\.md$/],
+      }),
       vueJSX(),
-     
+      Markdown(),
       legacy({
         modernPolyfills: ['esnext.array.at'],
       }),
