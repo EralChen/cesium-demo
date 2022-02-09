@@ -43,7 +43,7 @@ const filterNode = computed(() => {
 
 </script>
 <template>
-  <div class="admin-layout-side-bar">
+  <div class="admin-layout-side-bar sub-mt-xxs">
     <ElInput v-model="filterTitle" @change="expandLevel = 5"></ElInput>
     <NavLinkTree 
       :data="routes"
