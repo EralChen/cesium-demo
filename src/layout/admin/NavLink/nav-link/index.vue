@@ -1,6 +1,6 @@
 <script lang="ts">
 import { computed, defineComponent, ref, watch } from 'vue'
-import { useRoute } from 'vue-router'
+import { RouteLocation, useRoute } from 'vue-router'
 import CollapseX from '../collapse-x/index.vue'
 export default defineComponent({
   name: 'AdminLayoutNavLink',
@@ -25,7 +25,12 @@ export default defineComponent({
       default: false,
     },
   },
-  setup (props) {
+  emits: {
+    navigate: (e: RouteLocation & {
+        href: string;
+    }) => e,
+  },
+  setup (props, {emit}) {
     const hasChildren = computed(() => !props.linkable)
     const collapseShow = ref(props.expandBody)
     const route = useRoute()
@@ -38,9 +43,19 @@ export default defineComponent({
         collapseShow.value = true
       }
     }, { immediate: true })
+
+    function linkTo (route: RouteLocation & {
+        href: string;
+    }, navigate: AnyFunc) {
+      if (!hasChildren.value) {
+        navigate()
+        emit('navigate', route)
+      }
+    }
     return {
       hasChildren,
       collapseShow,
+      linkTo,
     }
   },
 })
@@ -58,7 +73,7 @@ export default defineComponent({
       >
         <template #header>
           <a
-            @click="!hasChildren && navigate()"
+            @click="linkTo(route, navigate)"
             class="admin-layout-nav-link"
             :class="{
               'is-active': isActive,

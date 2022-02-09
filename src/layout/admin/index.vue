@@ -5,7 +5,7 @@ import { Breakpoints, sBreakpoints } from '@/components/AppWrapper/index.vue'
 import { inject, ref } from 'vue'
 const bp = inject<Breakpoints>(sBreakpoints)
 if (!bp) throw new Error()
-const sm = bp.smaller('tablet')
+const smTablet = bp.smaller('tablet')
 const hamburgerActive = ref(true)
 </script>
 <template>
@@ -13,14 +13,17 @@ const hamburgerActive = ref(true)
     <div class="admin-layout-side-bar-x" 
       :class="{
         'is-hidden': !hamburgerActive,
-        'is-absolute': sm
+        'is-absolute': smTablet,
+        'is-full': smTablet
       }"
     >
       <SideBar></SideBar>
     </div>
     <main sk-flex-grow="hidden">
-      <div class="admin-layout-main__header" v-show="!sm">
-        <HeaderVue v-model:hamburger-active="hamburgerActive"></HeaderVue>
+      <div class="admin-layout-main__header">
+        <HeaderVue v-model:hamburger-active="hamburgerActive">
+
+        </HeaderVue>
       </div>
       <div class="admin-layout-main__inner" sk-flex-grow="hidden">
         <router-view></router-view>
@@ -50,7 +53,9 @@ const hamburgerActive = ref(true)
   z-index: 2;
   &.is-absolute{
     position: absolute;
-
+  }
+  &.is-full{
+    width: 100%;
   }
   &.is-hidden{
     position: absolute;

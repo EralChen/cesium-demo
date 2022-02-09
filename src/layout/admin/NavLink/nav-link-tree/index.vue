@@ -1,6 +1,6 @@
 <script lang="ts">
 import { computed, defineComponent, PropType } from 'vue'
-import { RouteRecordRaw } from 'vue-router'
+import { RouteLocation, RouteRecordRaw } from 'vue-router'
 import NavLink from '../nav-link/index.vue'
 function hasChildren (route: RouteRecordRaw) {
   return !!route.children?.length
@@ -31,6 +31,11 @@ export default defineComponent({
       type: Function,
       default: () => true,
     },
+  },
+  emits: {
+    navigate: (e: RouteLocation & {
+        href: string;
+    }) => e,
   },
   setup (props) {
     function getFullPath (path: string, pPath?: string) {
@@ -81,6 +86,7 @@ export default defineComponent({
           :linkable="!hasChildren(item)"
           :hidden-body="!hasChildren(item)"
           :expand-body="level <= expandLevel"
+          @navigate="$emit('navigate', $event)"
         >
           <template #title>
             <p sk-flex="row_center" class="sub-ml-xxxs">

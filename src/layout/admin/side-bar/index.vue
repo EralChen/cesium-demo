@@ -3,8 +3,12 @@ import { computed, ref } from 'vue'
 import NavLinkTree from '../NavLink/nav-link-tree/index.vue'
 import { useRoutesStore } from '@/store/routes'
 import { ElInput } from 'element-plus'
-import { RouteRecordRaw } from 'vue-router'
-
+import { RouteLocation, RouteRecordRaw } from 'vue-router'
+defineEmits({
+  navigate: (e: RouteLocation & {
+      href: string;
+  }) => e,
+})
 const routesStore = useRoutesStore()
 const routes = computed(() => routesStore.routes)
 // filter 过滤菜单
@@ -45,6 +49,7 @@ const filterNode = computed(() => {
       :data="routes"
       :expand-level="expandLevel"
       :filter-node-method="filterNode"
+      @navigate="$emit('navigate', $event)"
     >
     </NavLinkTree>
   </div>
