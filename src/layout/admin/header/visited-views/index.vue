@@ -88,7 +88,7 @@ export default defineComponent({
 </template>
 <style lang="scss">
 .layout-admin-header-link-ul {
-
+  flex-wrap: wrap;
   li {
     .icon-close {
       border-radius: 50%;

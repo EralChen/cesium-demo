@@ -16,14 +16,14 @@ const lgTablet = bp?.greater('tablet')
 <template>
   <div class="layout-admin-header-x">
     <!-- <Transition name="slide-up"> -->
-      <div v-if="lgTablet" class="sub-mt-xxs">
+      <div v-show="lgTablet" class="sub-mt-xxs">
         <Hamburger
           :modelValue="hamburgerActive"
           @update:modelValue="$emit('update:hamburgerActive', $event)"
         ></Hamburger>
         <VisitedViews></VisitedViews>
       </div>
-      <div v-else sk-flex="row-between-center" class="layout-admin-header-tablet">
+      <div v-show="!lgTablet" sk-flex="row-between-center" class="layout-admin-header-tablet">
         <div class="layout-admin-header-logo sub-ml-xxs" sk-flex="row_center">
           <img :src="logo" />
           <span>Vue.js</span>

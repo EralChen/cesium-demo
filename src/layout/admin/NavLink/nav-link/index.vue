@@ -47,6 +47,7 @@ export default defineComponent({
     function linkTo (route: RouteLocation & {
         href: string;
     }, navigate: AnyFunc) {
+
       if (!hasChildren.value) {
         navigate()
         emit('navigate', route)
@@ -62,7 +63,7 @@ export default defineComponent({
 </script>
 <template>
   <router-link :to="to" custom>
-    <template #default="{ route, navigate, isActive, isExactActive }">
+    <template #default="{ route, navigate, isActive, isExactActive, href }">
       <CollapseX 
         :icon="hasChildren" 
         :header-class="{
@@ -73,8 +74,9 @@ export default defineComponent({
       >
         <template #header>
           <a
-            @click="linkTo(route, navigate)"
+            @click.prevent="linkTo(route, navigate)"
             class="admin-layout-nav-link"
+            :href="href"
             :class="{
               'is-active': isActive,
               'is-exact-active': isExactActive,
