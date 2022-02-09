@@ -2,11 +2,14 @@
 import SideBar from './side-bar/index.vue'
 import HeaderVue from './header/index.vue'
 import { Breakpoints, sBreakpoints } from '@/components/AppWrapper/index.vue'
-import { inject, ref } from 'vue'
+import { inject, onMounted, ref } from 'vue'
 const bp = inject<Breakpoints>(sBreakpoints)
 if (!bp) throw new Error()
 const smTablet = bp.smaller('tablet')
-const hamburgerActive = ref(true)
+const hamburgerActive = ref(false)
+onMounted(() => {
+  hamburgerActive.value = !smTablet.value
+})
 </script>
 <template>
   <div class="admin-layout-x" sk-flex="row">
@@ -14,10 +17,10 @@ const hamburgerActive = ref(true)
       :class="{
         'is-hidden': !hamburgerActive,
         'is-absolute': smTablet,
-        'is-full': smTablet
+        // 'is-full': smTablet
       }"
     >
-      <SideBar></SideBar>
+      <SideBar @navigate="smTablet && (hamburgerActive = false)"></SideBar>
     </div>
     <main sk-flex-grow="hidden">
       <div class="admin-layout-main__header">
@@ -49,7 +52,7 @@ const hamburgerActive = ref(true)
   border-radius: 4px;
   padding: 1em;
   background-color: var(--c-side-bar-bg);
-  transition: all .8s ease;
+  transition: all .4s ease-in-out;
   z-index: 2;
   &.is-absolute{
     position: absolute;

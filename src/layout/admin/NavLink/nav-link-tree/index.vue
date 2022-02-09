@@ -104,6 +104,7 @@ export default defineComponent({
               :level="level + 1"
               :expandLevel="expandLevel"
               :filterNodeMethod="filterNodeMethod" 
+              @navigate="$emit('navigate', $event)"
             ></AdminLayoutNavLinkTree>
           </template>
         </NavLink>
