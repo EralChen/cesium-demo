@@ -9,5 +9,5 @@
 ## Card
 
 :::demo
-  /card/index.vue
+  card/index.vue
 :::

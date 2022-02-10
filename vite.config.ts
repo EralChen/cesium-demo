@@ -60,9 +60,9 @@ export default defineConfig(({ mode }) => {
         markdownItSetup (md) {
           // for example
           markdownAnchor(md)
-          // mdDemoPlugin(md)
+          mdDemoPlugin(md)
         },
-        markdownItUses: [mdDemoPlugin],
+        // markdownItUses: [mdDemoPlugin],
       }),
       legacy({
         modernPolyfills: ['esnext.array.at'],

@@ -30,7 +30,7 @@ export const mdDemoPlugin = (md: MarkdownIt) => {
     },
 
     render (tokens, idx) {
-      const data = (md as any).__data
+      const data = (md as any).__data || {}
       console.log(md)
       const hoistedTags: string[] = data.hoistedTags || (data.hoistedTags = [])
 
@@ -43,7 +43,7 @@ export const mdDemoPlugin = (md: MarkdownIt) => {
 
         if (sourceFileToken.type === 'inline') {
           source = fs.readFileSync(
-            path.resolve(demosRoot, `${sourceFile}.vue`),
+            path.resolve(demosRoot, `${sourceFile}`),
             'utf-8',
           )
           const existingScriptIndex = hoistedTags.findIndex((tag) =>
