@@ -37,8 +37,9 @@ export default defineComponent({
     const visitedViews = ref<Map<string, ViewRoute>>(filterAffixTags(routesStore.routes))
   
     watch(route, (v) => {
+      v = router.resolve(v)
       const doc = JSON.parse(JSON.stringify({
-        fullPath: v.fullPath.endsWith('/') ? v.fullPath.slice(0, -1) : v.fullPath,
+        fullPath: v.fullPath,
         hash: v.hash,
         meta: v.meta,
         params: v.params,
@@ -46,7 +47,7 @@ export default defineComponent({
         query: v.query,
         path: v.path,
       })) as ViewRoute
-      visitedViews.value.set(doc.fullPath, doc)
+      visitedViews.value.set(doc.path, doc)
     }, { immediate: true })
 
     const delVisitedViews = (key: string, isExactActive: boolean) => {

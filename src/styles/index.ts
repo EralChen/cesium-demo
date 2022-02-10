@@ -1,4 +1,5 @@
 import './common'
 import './element-plus'
 import './vue'
+import './markdown/index.scss'
 import 'vunk/index.css'
