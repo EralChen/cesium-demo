@@ -13,7 +13,8 @@ onMounted(() => {
 </script>
 <template>
   <div class="admin-layout-x" sk-flex="row">
-    <div class="admin-layout-side-bar-x" 
+    <div
+      class="admin-layout-side-bar-x"
       :class="{
         'is-hidden': !hamburgerActive,
         'is-absolute': smTablet,
@@ -24,43 +25,49 @@ onMounted(() => {
     </div>
     <main sk-flex-grow="hidden">
       <div class="admin-layout-main__header">
-        <HeaderVue v-model:hamburger-active="hamburgerActive">
-
-        </HeaderVue>
+        <HeaderVue v-model:hamburger-active="hamburgerActive"></HeaderVue>
       </div>
       <div class="admin-layout-main__inner" sk-flex-grow="hidden">
-        <slot><router-view></router-view></slot> 
+        <slot>
+          <router-view v-slot="{ Component, route }">
+            <transition :name="'fade'" mode="out-in">
+              <keep-alive>
+                <component :is="Component" :key="route.meta.usePathKey ? route.path : undefined" />
+              </keep-alive>
+            </transition>
+          </router-view>
+        </slot>
       </div>
     </main>
   </div>
 </template> 
 <style lang="scss">
-.admin-layout-x{
+.admin-layout-x {
   height: 100%;
   --c-side-bar-bg: white;
   --c-main-bg: #f7f7f7;
 }
-.admin-layout-x main{
+.admin-layout-x main {
   flex-direction: column;
   background-color: var(--c-main-bg);
 }
-.admin-layout-main__inner{
+.admin-layout-main__inner {
   width: 100%;
 }
-.admin-layout-side-bar-x{
+.admin-layout-side-bar-x {
   height: 100%;
   border-radius: 4px;
   padding: 1em;
   background-color: var(--c-side-bar-bg);
-  transition: all .4s ease-in-out;
+  transition: all 0.4s ease-in-out;
   z-index: 2;
-  &.is-absolute{
+  &.is-absolute {
     position: absolute;
   }
-  &.is-full{
+  &.is-full {
     width: 100%;
   }
-  &.is-hidden{
+  &.is-hidden {
     position: absolute;
     transform: translateX(-100%);
   }
