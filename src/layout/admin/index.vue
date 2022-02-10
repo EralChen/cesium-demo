@@ -29,7 +29,7 @@ onMounted(() => {
         </HeaderVue>
       </div>
       <div class="admin-layout-main__inner" sk-flex-grow="hidden">
-        <router-view></router-view>
+        <slot><router-view></router-view></slot> 
       </div>
     </main>
   </div>

@@ -2,13 +2,15 @@ import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 // import DEMO_MASTER from './_demo-master'
 // import DEMO_EL_PLUS from './_demo-el-plus'
 import DEMO_EL_PLUS__ADMIN from './_demo-el-plus.admin'
+import voieRoutes from '~pages'
+console.log(voieRoutes)
 export const routes: Array<RouteRecordRaw> = [
   // ...DEMO_EL_PLUS,
   // ...DEMO_MASTER,
   ...DEMO_EL_PLUS__ADMIN,
   {
     path: '/',
-    redirect: '/_demo-el-plus.admin/home',
+    redirect: '/vunk/card',
     meta: {
       hidden: true,
     },
@@ -20,7 +22,7 @@ export const routes: Array<RouteRecordRaw> = [
       hidden: true,
     },
   },
-
+  ...voieRoutes,
 ]
 
 const router = createRouter({
