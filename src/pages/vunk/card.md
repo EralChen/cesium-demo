@@ -1,3 +1,6 @@
+---
+name: "Card"
+---
 <route>
 {
   meta: {
