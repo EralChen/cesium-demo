@@ -5,10 +5,13 @@ import prism from 'prismjs'
 
 // prism is listed as actual dep so it's ok to require
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-const loadLanguages = require('prismjs/components/index')
-
+await import('prismjs/components/index.js').then(res => {
 // required to make embedded highlighting work...
-loadLanguages(['markup', 'css', 'javascript'])
+  const loadLanguages = res.default
+  console.log(loadLanguages)
+  loadLanguages(['markup', 'css', 'javascript'])
+
+})
 
 function wrap (code: string, lang: string): string {
   if (lang === 'text') {

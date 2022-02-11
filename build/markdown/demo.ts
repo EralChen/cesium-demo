@@ -2,12 +2,11 @@ import path from 'path'
 import fs from 'fs'
 import MarkdownIt from 'markdown-it'
 import mdContainer from 'markdown-it-container'
-// import { highlight } from '../../utils/highlight'
+import { highlight } from '../../utils/highlight'
 // import { docRoot } from '../../utils/paths'
 import { demosRoot } from '../../config/path'
 import type Token from 'markdown-it/lib/token'
 import type Renderer from 'markdown-it/lib/renderer'
-
 const localMd = MarkdownIt()
 const scriptSetupRE = /<\s*script[^>]*\bsetup\b[^>]*/
 
@@ -60,8 +59,8 @@ export const mdDemoPlugin = (md: MarkdownIt) => {
         if (!source) throw new Error(`Incorrect source file: ${sourceFile}`)
 
         return `<Demo :demos="demos" source="${encodeURIComponent(
-          source,
-          // highlight(source, 'vue'),
+          // source,
+          highlight(source, 'vue'),
         )}" path="${sourceFile}" raw-source="${encodeURIComponent(
           source,
         )}" description="${encodeURIComponent(localMd.render(description))}">`

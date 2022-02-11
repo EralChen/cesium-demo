@@ -1,4 +1,12 @@
-# VkCollapse
+<route>
+{
+  meta: {
+    title: "Collapse"
+  }
+}
+</route>
+
+# Collapse
 
 一个可折叠的盒子
 

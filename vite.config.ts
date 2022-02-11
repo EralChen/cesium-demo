@@ -12,7 +12,6 @@ import pages from 'vite-plugin-pages'
 import markdown from 'vite-plugin-md'
 import markdownAnchor from 'markdown-it-anchor'
 import { mdDemoPlugin } from './build/markdown/demo'
-import markdownItPrism from 'markdown-it-prism'
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => {
   const env = getEnv(mode)
@@ -56,12 +55,12 @@ export default defineConfig(({ mode }) => {
       pages({
         extensions: ['vue', 'md'],
       }),
+
       markdown({
         
         markdownItSetup (md) {
           // for example
           markdownAnchor(md)
-          md.use(markdownItPrism)
           mdDemoPlugin(md)
         },
         // markdownItUses: [mdDemoPlugin],

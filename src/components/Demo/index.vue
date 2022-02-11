@@ -1,33 +1,37 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
+import SourceCode from './SourceCode/index.vue'
 export default defineComponent({
+  components: {
+    SourceCode,
+  },
   props: {
     demos: {
       type: Object,
-      default: () => ({})
+      default: () => ({}),
     },
     source: {
       type: String,
-      default: ''
+      default: '',
     },
-    path:  {
+    path: {
       type: String,
-      default: ''
+      default: '',
     },
     rawSource: {
       type: String,
-      default: ''
+      default: '',
     },
     description: {
       type: String,
-      default: ''
-    }
+      default: '',
+    },
   },
   setup () {
     return {}
-  }
+  },
 })
 </script>
 <template>
-  <div> {{ source }} </div>
+  <SourceCode :source="source"></SourceCode>
 </template>
