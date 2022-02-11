@@ -8,7 +8,7 @@ import { demosRoot } from '../../config/path'
 import type Token from 'markdown-it/lib/token'
 import type Renderer from 'markdown-it/lib/renderer'
 const localMd = MarkdownIt()
-const scriptSetupRE = /<\s*script[^>]*\bsetup\b[^>]*/
+// const scriptSetupRE = /<\s*script[^>]*\bsetup\b[^>]*/
 
 interface ContainerOpts {
   marker?: string | undefined
@@ -29,9 +29,6 @@ export const mdDemoPlugin = (md: MarkdownIt) => {
     },
 
     render (tokens, idx) {
-      const data = (md as any).__data || {}
-      const hoistedTags: string[] = data.hoistedTags || (data.hoistedTags = [])
-
       const m = tokens[idx].info.trim().match(/^demo\s*(.*)$/)
       if (tokens[idx].nesting === 1 /* means the tag is opening */) {
         const description = m && m.length > 1 ? m[1] : ''
@@ -44,28 +41,19 @@ export const mdDemoPlugin = (md: MarkdownIt) => {
             path.resolve(demosRoot, `${sourceFile}`),
             'utf-8',
           )
-          const existingScriptIndex = hoistedTags.findIndex((tag) =>
-            scriptSetupRE.test(tag),
-          )
-          if (existingScriptIndex === -1) {
-            hoistedTags.push(`
-              <script setup>
-              const demos = import.meta.globEager('../../examples/${
-                sourceFile.split('/')[0]
-              }/*.vue')
-              </script>`)
-          }
         }
+
         if (!source) throw new Error(`Incorrect source file: ${sourceFile}`)
 
-        return `<Demo :demos="demos" source="${encodeURIComponent(
+        return `  <Suspense> <Demo source="${encodeURIComponent(
           // source,
           highlight(source, 'vue'),
         )}" path="${sourceFile}" raw-source="${encodeURIComponent(
           source,
         )}" description="${encodeURIComponent(localMd.render(description))}">`
+
       } else {
-        return '</Demo>'
+        return '</Demo></Suspense>'
       }
     },
   } as ContainerOpts)

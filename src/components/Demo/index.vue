@@ -1,9 +1,12 @@
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, ref } from 'vue'
 import SourceCode from './SourceCode/index.vue'
+import { VkCollapse } from 'vunk'
+import demos from '@/demos'
 export default defineComponent({
   components: {
     SourceCode,
+    VkCollapse,
   },
   props: {
     demos: {
@@ -27,11 +30,28 @@ export default defineComponent({
       default: '',
     },
   },
-  setup () {
-    return {}
+  async setup (props) {
+    const codeShow = ref(false)
+    const c = (await demos[props.path]()).default
+    return {
+      codeShow,
+      c,
+    }
   },
 })
 </script>
 <template>
-  <SourceCode :source="source"></SourceCode>
+  <!-- 想办法加载对对应路径下的组件 -->
+  <Component :is="c"></Component>
+
+  <!-- show code  -->
+  <VkCollapse v-model="codeShow">
+    <template #header>
+      点击
+    </template>
+    <template #body>
+      <SourceCode :source="source"></SourceCode>
+    </template>
+  </VkCollapse>
+
 </template>
