@@ -5,10 +5,14 @@
   --c-danger: #FF0000;
   --c-success: #9AFF00;
 
-  --c-content:#333333;
-  --ic-content: #eeeeee;
+  --c-text:#333333;
+  --ic-text: #eeeeee;
+   
+  --c-sec-text:  #909399;
+  /* --c-sub-content: #  */
 
   --c-bg: #FFF;
+  --c-sec-bg: #eee;
 
   --c-border: #DCDFE6;
 
@@ -31,7 +35,7 @@
 
 /* 初始化css样式 */
 body{
-  color: var(--c-content);
+  color: var(--c-text);
 }
 h1{
   color: var(--c-light);

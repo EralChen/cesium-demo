@@ -41,17 +41,38 @@ export default defineComponent({
 })
 </script>
 <template>
-  <!-- 想办法加载对对应路径下的组件 -->
-  <Component :is="c"></Component>
-
-  <!-- show code  -->
-  <VkCollapse v-model="codeShow">
-    <template #header>
-      点击
-    </template>
-    <template #body>
-      <SourceCode :source="source"></SourceCode>
-    </template>
-  </VkCollapse>
-
+  <div class="demo-x">
+    <Component :is="c"></Component>
+    <VkCollapse v-model="codeShow" class="demo-source-code-x">
+      <template #header>
+        <SvgIcon :icon-class="'down'" :class="{
+          'is-active': codeShow
+        }"></SvgIcon>
+      </template>
+      <template #body>
+        <SourceCode :source="source"></SourceCode>
+      </template>
+    </VkCollapse>
+  </div>
 </template>
+<style lang="scss">
+.demo-source-code-x{
+  .vk-collapse-header-x{
+    color: var(--c-sec-text);
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    border-radius: 4px;
+    &:hover{
+      background-color: var(--c-sec-bg);
+    }
+  }
+
+  .icon-down {
+    transition: transform .4s ease;
+    &.is-active{
+      transform: rotateZ(180deg);
+    }
+  }
+}
+</style>

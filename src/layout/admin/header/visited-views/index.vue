@@ -103,7 +103,7 @@ export default defineComponent({
       border: 1px solid var(--c-border);
       padding: 0.2em 0.4em;
       &.router-link-exact-active {
-        color: var(--ic-content);
+        color: var(--ic-text);
         background: var(--c-info);
       }
     }
