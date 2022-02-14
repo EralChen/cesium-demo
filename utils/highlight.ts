@@ -8,7 +8,6 @@ import prism from 'prismjs'
 await import('prismjs/components/index.js').then(res => {
 // required to make embedded highlighting work...
   const loadLanguages = res.default
-  console.log(loadLanguages)
   loadLanguages(['markup', 'css', 'javascript'])
 
 })

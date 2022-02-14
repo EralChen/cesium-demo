@@ -5,7 +5,6 @@ const keepScrollXNode = ref<HTMLDivElement|null>(null)
 const scrollTop = ref(0)
 const saveScrollTop = debounce(function () {
   if (keepScrollXNode.value) {
-    console.dir(keepScrollXNode.value)
     scrollTop.value = keepScrollXNode.value.scrollTop
   }
 })
@@ -18,9 +17,7 @@ const putScrollTop = () => {
 onMounted(() => {
   saveScrollTop()
 })
-// onDeactivated(() => {
-//   saveScrollTop()
-// })
+
 onActivated(() => {
   putScrollTop()
 })
