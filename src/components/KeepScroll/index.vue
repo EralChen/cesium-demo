@@ -1,12 +1,14 @@
 <script lang="ts" setup>
 import { onActivated, onMounted, ref, onDeactivated } from 'vue'
-const keepScrollXNode = ref<HTMLDivElement>(null)
+import { debounce } from 'vunk'
+const keepScrollXNode = ref<HTMLDivElement|null>(null)
 const scrollTop = ref(0)
-const saveScrollTop = () => {
+const saveScrollTop = debounce(function () {
   if (keepScrollXNode.value) {
+    console.dir(keepScrollXNode.value)
     scrollTop.value = keepScrollXNode.value.scrollTop
   }
-}
+})
 const putScrollTop = () => {
   if (keepScrollXNode.value) {
     keepScrollXNode.value.scrollTop = scrollTop.value
@@ -16,19 +18,27 @@ const putScrollTop = () => {
 onMounted(() => {
   saveScrollTop()
 })
-onDeactivated(() => {
-  saveScrollTop()
-})
+// onDeactivated(() => {
+//   saveScrollTop()
+// })
 onActivated(() => {
   putScrollTop()
 })
 </script>
 <template>
-  <div class="keep-scroll-x" ref="keepScrollXNode">
+<div class="keep-scroll-bfc">
+
+
+  <div class="keep-scroll-x" ref="keepScrollXNode" @scroll="saveScrollTop">
     <slot></slot>
   </div>
+</div>
 </template>
 <style>
+.keep-scroll-bfc{
+  height: 100%;
+  overflow: hidden;
+}
 .keep-scroll-x{
   height: 100%;
   overflow: auto;

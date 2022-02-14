@@ -45,7 +45,7 @@ export const mdDemoPlugin = (md: MarkdownIt) => {
 
         if (!source) throw new Error(`Incorrect source file: ${sourceFile}`)
 
-        return `  <Suspense> <Demo source="${encodeURIComponent(
+        return `  <Suspense> <DemoContainer source="${encodeURIComponent(
           // source,
           highlight(source, 'vue'),
         )}" path="${sourceFile}" raw-source="${encodeURIComponent(
@@ -53,7 +53,7 @@ export const mdDemoPlugin = (md: MarkdownIt) => {
         )}" description="${encodeURIComponent(localMd.render(description))}">`
 
       } else {
-        return '</Demo></Suspense>'
+        return '</DemoContainer></Suspense>'
       }
     },
   } as ContainerOpts)

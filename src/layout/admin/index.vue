@@ -18,7 +18,6 @@ onMounted(() => {
       :class="{
         'is-hidden': !hamburgerActive,
         'is-absolute': smTablet,
-        // 'is-full': smTablet
       }"
     >
       <SideBar @navigate="smTablet && (hamburgerActive = false)"></SideBar>
@@ -28,15 +27,13 @@ onMounted(() => {
         <HeaderVue v-model:hamburger-active="hamburgerActive"></HeaderVue>
       </div>
       <div class="admin-layout-main__inner" sk-flex-grow="hidden">
-        <slot>
+        <!-- <slot> -->
           <router-view v-slot="{ Component, route }">
-            <transition :name="'fade'" mode="out-in">
-              <keep-alive>
-                <component :is="Component" :key="route.meta.usePathKey ? route.path : undefined" />
-              </keep-alive>
-            </transition>
+            <keep-alive>
+              <component :is="Component" :key="route.meta.usePathKey ? route.path : undefined" />
+            </keep-alive>
           </router-view>
-        </slot>
+        <!-- </slot> -->
       </div>
     </main>
   </div>

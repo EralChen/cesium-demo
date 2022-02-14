@@ -30,6 +30,7 @@
     "typings/**/*.d.ts",
     "config/**/*.ts",
     "utils/**/*.ts",
+    "demos/**/*.ts",
     "vite.config.ts"
   ],
   "exclude": [
