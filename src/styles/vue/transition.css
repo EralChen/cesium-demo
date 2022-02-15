@@ -37,6 +37,7 @@
 .drop-down-enter-to,
 .drop-down-leave-from{
   transform: scaleY(1);  
+
   opacity: 1;
 }
 

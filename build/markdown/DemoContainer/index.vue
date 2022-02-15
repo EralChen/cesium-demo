@@ -43,7 +43,9 @@ export default defineComponent({
 <template>
   <div class="demo-x">
     <Component :is="c"></Component>
-    <VkCollapse v-model="codeShow" class="demo-source-code-x">
+    <VkCollapse v-model="codeShow" :transition-props="{
+      name: 'drop-down'
+    }" class="demo-source-code-x">
       <template #header>
         <SvgIcon :icon-class="'down'" :class="{
           'is-active': codeShow
