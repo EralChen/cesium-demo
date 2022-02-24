@@ -1,4 +1,4 @@
-import { RestFetch } from 'vunk'
+import { RestFetch } from '@vunk/shared'
 const restFetch = new RestFetch({
   baseURL: import.meta.env.VITE_BASE_URL + '/data',
 })

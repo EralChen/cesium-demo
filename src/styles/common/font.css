@@ -19,6 +19,9 @@ h1{
   font-size: var(--f-l);
 }
 h2{
+  font-size: var(--f-m);
+}
+h3{
   font-size: var(--f-s);
 }
 .f-l{

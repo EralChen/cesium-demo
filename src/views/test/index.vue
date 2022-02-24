@@ -2,11 +2,10 @@
 import { defineComponent } from 'vue'
 export default defineComponent({
   setup () {
-    return {
-    }
-  },
+    return {}
+  }
 })
 </script>
 <template>
-  <div>xxxxxxxx</div>
+  <div>test</div>
 </template>
