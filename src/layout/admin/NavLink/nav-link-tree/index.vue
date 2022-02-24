@@ -46,7 +46,8 @@ export default defineComponent({
       if (!pRoute.children || pRoute.meta?.alwaysShow) return pRoute
       const routes = pRoute.children.filter(item => !item.meta?.hidden)
       if (routes.length === 1) {
-        const only = routes[0]
+        // 浅拷贝 不能修改only的元数据
+        const only = {...routes[0]}
         only.path = getFullPath(only.path, pRoute.path)
         if (only.children?.length) { //如果这个route 还有children
           return mergeRoute(only)
