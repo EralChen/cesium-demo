@@ -5,10 +5,13 @@
   --c-danger: #FF0000;
   --c-success: #9AFF00;
 
-  --c-content:#333333;
-  --ic-content: #eeeeee;
+  --c-text:#333333;
+  --ic-text: #eeeeee;
+   
+  --ic-text-s:  #909399;
 
   --c-bg: #FFF;
+  --c-bg-s: #eee;
 
   --c-border: #DCDFE6;
 

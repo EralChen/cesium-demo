@@ -61,8 +61,8 @@ const filterNode = computed(() => {
 
   --c-dir: #9f9f9f;
 
-  --c-text: var(--c-content);
-  --c-text-active: var(--ic-content);
+  --c-text: var(--c-text);
+  --c-text-active: var(--ic-text);
   --c-bg-active: var(--c-info);
 }
 </style>

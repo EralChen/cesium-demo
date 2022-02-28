@@ -1,6 +1,6 @@
 <script lang="ts">
 import { useRoutesStore } from '@/store/routes'
-import { resolveFullPath } from '@/utils/route'
+import { lintPath, resolveFullPath } from '@/utils/route'
 import { defineComponent, ref, watch } from 'vue'
 import { useRoute, RouteLocationNormalizedLoaded, useRouter, RouteRecordRaw } from 'vue-router'
 type ViewRoute = Omit<RouteLocationNormalizedLoaded, 'redirectedFrom' | 'matched'>
@@ -9,6 +9,7 @@ const filterAffixTags = (routes: RouteRecordRaw[], basePath = '') => {
 
   routes.forEach(route => {
     const fullPath = resolveFullPath(route.path, basePath)
+    // console.log(fullPath)
     if (route.meta && route.meta.affix) {
       tags.set(fullPath, {
         fullPath,
@@ -37,16 +38,18 @@ export default defineComponent({
     const visitedViews = ref<Map<string, ViewRoute>>(filterAffixTags(routesStore.routes))
   
     watch(route, (v) => {
+      v = router.resolve(v)
       const doc = JSON.parse(JSON.stringify({
-        fullPath: v.fullPath.endsWith('/') ? v.fullPath.slice(0, -1) : v.fullPath,
+        fullPath: v.fullPath,
         hash: v.hash,
         meta: v.meta,
         params: v.params,
         name: v.name,
         query: v.query,
-        path: v.path,
+        path: lintPath(v.path),
       })) as ViewRoute
-      visitedViews.value.set(doc.fullPath, doc)
+      
+      visitedViews.value.set(doc.path, doc)
     }, { immediate: true })
 
     const delVisitedViews = (key: string, isExactActive: boolean) => {
@@ -102,7 +105,7 @@ export default defineComponent({
       border: 1px solid var(--c-border);
       padding: 0.2em 0.4em;
       &.router-link-exact-active {
-        color: var(--ic-content);
+        color: var(--ic-text);
         background: var(--c-info);
       }
     }
