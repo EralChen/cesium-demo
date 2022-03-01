@@ -7,6 +7,9 @@ import { getEnv } from './utils/env'
 import path from 'path'
 import { viteExternalsPlugin } from 'vite-plugin-externals' 
 import { srcRoot, workRoot } from './config/path'
+import legacy from '@vitejs/plugin-legacy'
+import { viteExternalsPlugin } from 'vite-plugin-externals'
+
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => {
   const env = getEnv(mode)
@@ -33,6 +36,10 @@ export default defineConfig(({ mode }) => {
       viteExternalsPlugin({
         cesium: 'Cesium',
       }),
+      legacy({
+        modernPolyfills: ['esnext.array.at'],
+      }),
+      viteExternalsPlugin(),
       viteSvgIcons({
         // Specify the icon folder to be cached
         iconDirs: [path.resolve(srcRoot,'./icons/svg')],
