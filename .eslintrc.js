@@ -38,11 +38,12 @@ const config = {
     semi: ['error', 'never'],
     'no-whitespace-before-property': 'error',
     'key-spacing': ['error', { 'afterColon': true }],
-    'import/no-duplicates': 'error',
     'object-curly-spacing': ['error', 'always'],
     // for ts
     // for vue
     'vue/multi-word-component-names': 'off',
+    // import plugin
+    'import/no-duplicates': 'error',
   },
 }
 module.exports = config
