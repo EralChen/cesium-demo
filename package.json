@@ -24,6 +24,7 @@
     "@vitejs/plugin-vue-jsx": "^1.3.3",
     "@vue/compiler-sfc": "^3.2.26",
     "eslint": "^8.5.0",
+    "eslint-plugin-import": "^2.25.4",
     "eslint-plugin-vue": "^8.2.0",
     "typescript": "^4.5.4",
     "vite": "^2.7.7",
