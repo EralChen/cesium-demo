@@ -6,7 +6,7 @@ export default defineComponent({
     VumViewer,VumSkyBasemap,VumCesium3dTileset,
   },
   setup () {
-    const tileLoad:__VumCesium3dTileset.OnLoad = ({viewer, tileset}) => {
+    const tileLoad:__VumCesium3dTileset.OnLoad = ({ viewer, tileset }) => {
       viewer.zoomTo(tileset)
     }
     return {

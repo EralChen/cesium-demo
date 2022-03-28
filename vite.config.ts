@@ -1,7 +1,7 @@
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import vueJSX from '@vitejs/plugin-vue-jsx'
-import viteSvgIcons from 'vite-plugin-svg-icons'
+import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
 import windowEnv from './build/plugins/window-env'
 import { getEnv } from './utils/env'
 import path from 'path'
@@ -38,7 +38,7 @@ export default defineConfig(({ mode }) => {
       legacy({
         modernPolyfills: ['esnext.array.at'],
       }),
-      viteSvgIcons({
+      createSvgIconsPlugin({
         // Specify the icon folder to be cached
         iconDirs: [path.resolve(srcRoot,'./icons/svg')],
         // Specify symbolId format

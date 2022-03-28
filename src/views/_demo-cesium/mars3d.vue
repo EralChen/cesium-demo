@@ -1,18 +1,20 @@
 
 <script lang="ts">
-import {VumViewer} from 'vuesium'
-import {VumaMap} from 'vuesium-mars3d'
+import { VumViewer } from 'vuesium'
+import { VumaMap , VumaTilesetLayer, __VumaTilesetLayer } from 'vuesium-mars3d'
 import { defineComponent } from 'vue'
-import { VumaTilesetLayer, __VumaTilesetLayer } from 'vuesium-mars3d'
-import { Cesium3DTileStyle, CustomShader, LightingModel } from 'cesium'
+
+import { CustomShader, LightingModel } from 'cesium'
+import TestPlugin from './sub-plugin.vue'
 export default defineComponent({
   components: {
     VumViewer,
     VumaMap,
     VumaTilesetLayer,
+    TestPlugin,
   },
   setup () {
-    const layerLoad:__VumaTilesetLayer.OnLoad = ({layer, map: {viewer}}) => {
+    const layerLoad:__VumaTilesetLayer.OnLoad = ({ layer, map: { viewer } }) => {
       viewer.flyTo(layer.tileset)
     }
     const options:__VumaTilesetLayer.DefaultOptions = {
@@ -26,7 +28,7 @@ export default defineComponent({
       {
         material.diffuse = vec3(1.0, 1.0, 1.0); // 颜色
         material.alpha = 0.5;
-      } `}),
+      } ` }),
       
       
     } as any
@@ -44,6 +46,7 @@ export default defineComponent({
         :default-options="options" 
         @load="layerLoad"
       ></vuma-tileset-layer>
+      <TestPlugin></TestPlugin>
     </vuma-map>
   </vum-viewer>
 </template>
