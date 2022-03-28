@@ -8,7 +8,6 @@ import path from 'path'
 import { viteExternalsPlugin } from 'vite-plugin-externals' 
 import { srcRoot, workRoot } from './config/path'
 import legacy from '@vitejs/plugin-legacy'
-import { viteExternalsPlugin } from 'vite-plugin-externals'
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => {
@@ -39,7 +38,6 @@ export default defineConfig(({ mode }) => {
       legacy({
         modernPolyfills: ['esnext.array.at'],
       }),
-      viteExternalsPlugin(),
       viteSvgIcons({
         // Specify the icon folder to be cached
         iconDirs: [path.resolve(srcRoot,'./icons/svg')],
