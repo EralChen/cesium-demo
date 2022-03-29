@@ -1,3 +1,2 @@
-export default {
-  'card/index.vue': () => import('./card/index.vue'),
-} as any
+const modules = import.meta.glob('./**/*.vue')
+export default modules
