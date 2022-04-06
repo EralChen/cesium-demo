@@ -14,22 +14,6 @@ export default defineConfig(({ mode }) => {
   const env = getEnv(mode)
   return {
     base: env.VITE_BASE_URL + '/',
-    css: {
-      postcss: {
-        plugins: [
-          {
-            postcssPlugin: 'internal:charset-removal',
-            AtRule: {
-              charset: (atRule) => {
-                if (atRule.name === 'charset') {
-                  atRule.remove()
-                }
-              },
-            },
-          },
-        ],
-      },
-    },
     build: {
       outDir: path.resolve(workRoot, './dist' + env.VITE_BASE_URL),
     },
