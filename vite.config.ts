@@ -42,7 +42,25 @@ export default defineConfig(({ mode }) => {
         // Specify symbolId format
         symbolId: 'icon-[dir]-[name]',
       }),
+
     ],
+
+    css: {
+      postcss: {
+        plugins: [
+          {
+            postcssPlugin: 'internal:charset-removal',
+            AtRule: {
+              charset: (atRule) => {
+                if (atRule.name === 'charset') {
+                  atRule.remove()
+                }
+              },
+            },
+          },
+        ],
+      },
+    },
   }
 
 })
