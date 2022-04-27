@@ -17,7 +17,7 @@
     "vue-router": "^4.0.14",
     "vuesium": "^0.0.0-alpha.12",
     "vuesium-mars3d": "^0.0.0-alpha.7",
-    "vunk": "^0.0.0-alpha.27"
+    "vunk": "^0.0.0-alpha.29"
   },
   "devDependencies": {
     "@types/gulp": "^4.0.9",
