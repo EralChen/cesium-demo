@@ -62,23 +62,44 @@ export default defineComponent({
         return pRoute
       }
     }
+
+    function flatRoutes (routes: RouteRecordRaw[]):RouteRecordRaw[] {
+      // console.log(routes)
+      routes = routes.reduce((a, c) => { 
+        if (!c.meta?.title && !c.meta?.hidden) { // 如果没有title 且 非hidden
+          // 将他的children 放到 routes中
+          if (c.children) {
+            const nRoutes = c.children.map(item => ({
+              ...item,
+              path: getFullPath(item.path, c.path),
+            }))
+            a.push(...nRoutes)
+          }
+        } else {
+          a.push(c)
+        }
+        return a
+      }, [] as RouteRecordRaw[])
+      return routes
+    } 
+
     const genRoutes = computed(() => {
       return function * (routes: RouteRecordRaw[]) {
-        const nRoutes = routes.sort((a, b) => {
+        let nRoutes = routes.sort((a, b) => {
           if (a.meta?.sorted && b.meta?.sorted) {
             return a.meta.sorted - b.meta.sorted
           } else {
             return 0
           }
         })
-
+        nRoutes = flatRoutes(nRoutes)
         for (const route of nRoutes) {
-          const nRoute = mergeRoute(route)
+          let nRoute = mergeRoute(route)
+      
           if (props.filterNodeMethod(nRoute)) {
             yield nRoute
           }
         }
-
       }
     })
     return {
