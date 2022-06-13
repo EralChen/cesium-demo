@@ -1,6 +1,6 @@
 
 import request from '@/api/_request/skzz'
-import type { BaseResponse } from 'vunk/element-plus'
+import type { BaseResponse } from 'vunk/element-plus/shared/utils-fetch'
 
 export type OrgTreeNode = {
   name: string
