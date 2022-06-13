@@ -39,8 +39,6 @@ export default defineComponent({
   },
   setup (props) {
     function getFullPath (path: string, pPath?: string) {
-      // return path
-      // 
       return path.startsWith('/') ? path : (pPath || props.baseUrl) + '/' + path
     }
     function mergeRoute (pRoute: RouteRecordRaw): RouteRecordRaw {
