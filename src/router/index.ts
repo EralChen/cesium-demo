@@ -7,7 +7,7 @@ export const routes: Array<RouteRecordRaw> = [
   ...DEMO_CESIUM,
   {
     path: '/',
-    redirect: '/docs',
+    redirect: '/_demo-cesium',
     meta: {
       hidden: true,
     },
