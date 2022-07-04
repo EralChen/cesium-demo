@@ -2,13 +2,20 @@
 import chalk from 'chalk'
 import escapeHtml from 'escape-html'
 import prism from 'prismjs'
-
+// import 'prismjs-components-importer/esm'
 // prism is listed as actual dep so it's ok to require
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-const res = await import('prismjs/components/index.js')
-const loadLanguages = res.default
+const prismjsLoad = (langs = ['markup', 'css', 'javascript', 'vue']) => {
 
-loadLanguages(['markup', 'css', 'javascript', 'vue'])
+  import('prismjs/components/index.js').then(res => {
+    const loadLanguages = res.default
+    loadLanguages(langs)
+  })
+  
+}
+
+prismjsLoad()
+
 
 function wrap (code: string, lang: string): string {
   if (lang === 'text') {
@@ -37,7 +44,7 @@ export const highlight = (str: string, lang: string) => {
   }
   if (!prism.languages[lang]) {
     try {
-      loadLanguages([lang])
+      prismjsLoad([lang])
     } catch (e) {
       console.warn(
         chalk.yellow(

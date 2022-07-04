@@ -18,8 +18,10 @@ import { viteExternalsPlugin } from 'vite-plugin-externals'
 
 
 // https://vitejs.dev/config/
-export default defineConfig(({ mode }) => {
+export default defineConfig(async ({ mode }) => {
+
   const env = getEnv(mode)
+  
   return {
     base: env.VITE_BASE_URL + '/',
     build: {
@@ -28,6 +30,7 @@ export default defineConfig(({ mode }) => {
     server: {
       host: '0.0.0.0',
       port: 4321,
+      
     },
     resolve: {
       alias: {
@@ -52,11 +55,13 @@ export default defineConfig(({ mode }) => {
       }),
 
       markdown({
+        
         markdownItOptions: {
           html: true,
           linkify: true,
           highlight,
         },
+
         markdownItSetup (md) {
           // for example
           markdownAnchor(md)
