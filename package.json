@@ -9,7 +9,7 @@
     "init:cesium": "gulp -f scripts/init-cesium.ts"
   },
   "dependencies": {
-    "cesium": "^1.94.3",
+    "cesium": "^1.95.0",
     "mars3d": "^3.3.15",
     "pinia": "^2.0.14",
     "qs": "^6.11.0",
