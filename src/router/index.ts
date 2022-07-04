@@ -1,18 +1,19 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
-import DEMO_MASTER from './_demo-master'
+import voieRoutes from '~pages'
+import Layout from '@/layout/admin/index.vue'
+import RouterViewWrapper from '_c/RouterViewWrapper/index.vue'
 import DEMO_CESIUM from './_demo-cesium'
 export const routes: Array<RouteRecordRaw> = [
   ...DEMO_CESIUM,
-  ...DEMO_MASTER,
   {
     path: '/',
-    redirect: '/home',
-  },
-  {
-    path: '/home',
-    component: () => import('_v/home.vue'),
+    redirect: '/docs',
+    meta: {
+      hidden: true,
+    },
   },
 
+  ...voieRoutes,
 ]
 
 const router = createRouter({
